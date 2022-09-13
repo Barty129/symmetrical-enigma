@@ -18,8 +18,8 @@
 <body>
     <nav class="topnav">
         <ul class="navbar">
-            <li><a class="active" href="./landing.php">Expenses</a></li>
-            <li><a  href="./projects.php">Project Tracker</a></li>
+            <li><a  href="./landing.php">Expenses</a></li>
+            <li><a class="active" href="./projects.php">Project Tracker</a></li>
           </ul>
     </nav>
 
@@ -28,33 +28,24 @@
         <!--Top menu -->
         <div class="sidebar">
             <div class="new_expense">
-                <h4>Non-reimbursed</h4>
+                <h4>Ongoing Projects</h4>
+                <h4>Archived</h4>
             </div>
-
-            <div class="sidebaritems">
-                <ul class="sidebaritems">
-                    <li class="sidebaritems"> Hello1
-                    <li class="sidebaritems"> Hello2
-                    <li class="sidebaritems"> Hello3
-                </ul>
-            </div>
-
-            <div class="new_expense">
-                <h4>Non-reimbursed</h4>
-            </div>
+            <!--menu item-->
         </div>
 
     </div>
 
     <div class="welcome_text">
         <h3>CUSF Expenses and Project Management</h3>
-        <p><em>Welcome to CUSF Expenses</em></p>
+        <p><em>Welcome to CUSF Project Management</em></p>
     </div>
 
+
     <div class="addexpend"> 
-        <a href="./createexpense.php"><img id="engine" src="./Images/Engine.jpg" alt="White Dwarf" width="300" 
+        <a href="./addproject.php"><img id="engine" src="./Images/Engine.jpg" alt="White Dwarf" width="300" 
      height="405"></a>
-        <h2 id="addexp">Add new expense</h2>
+        <h2 id="addexp">Add New Project</h2>
     </div>
 
     <div class="stats">
@@ -63,11 +54,9 @@
         <h2 id="stats">See Stats</h2>
     </div>
 
-    <div class="allreimb">
-    <a href="./allreimb.php"><h2 id="allreimb">All Reimbursements</h2></a>
-    </div>
-
 </body>
+
+
 
 <footer class="footer">
     <p><em>The original CUSF expenses system was written in 2009 by Henry Hallam and was updated by Tim Clifford in 2021.</em></p>

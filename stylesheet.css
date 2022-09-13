@@ -1,0 +1,154 @@
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap');
+
+*{
+    list-style: none;
+    text-decoration: none;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Open Sans', sans-serif;
+}
+
+
+body{
+	background: #f5f6fa;
+}
+
+.wrapper .sidebar{
+    background: #1c4c74;
+    position: fixed;
+    top: 50px;
+    left: 0;
+    width: 600px;
+    height: 100%;
+    padding: 10px 0;
+    transition: all 0.5s ease;
+    z-index: -1
+}
+
+ul .navbar{
+    list-style-type: none;
+    display: inline;
+    margin-left: 0;
+    padding-left: 0;
+  }
+
+/* Add a black background color to the top navigation */
+.topnav {
+    background-color: #5cace4;
+    overflow: hidden;
+    margin: 0 auto;
+    text-align: center;
+    border-bottom: 2px solid white;
+    z-index: 1;
+  }
+  
+  /* Style the links inside the navigation bar */
+  .topnav a {
+    float: left;
+    color: white;
+    text-align: center;
+    padding: 14px 16px;
+    text-decoration: none;
+    font-size: 17px;
+  }
+  
+  /* Change the color of links on hover */
+  .topnav a:hover {
+    background-color: #ddd;
+    color: black;
+  }
+  
+  /* Add a color to the active/current link */
+  .topnav a.active {
+    background-color: #1c4c74;
+    color: white;
+  }
+
+.new_expense h4{
+    text-align: center;
+    color: white;
+    text-decoration-line: underline;
+  }
+  
+.welcome_text {
+    position: fixed;
+    left: 620px;
+}
+
+.footer {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    background-color: #5cace4;
+    color: black;
+    text-align: left;
+    font-size: 12px;
+    border-top: 2px solid white;
+  }
+
+  .sidebaritems ul{
+    text-align: center;
+    color: white;
+    padding: 5px 0;
+  }
+
+  .sidebaritems li{
+    margin: 10px 0;
+  }
+
+img#engine {
+        border-radius: 30px;
+        position: fixed;
+        left: 720px;
+        top: 150px;
+  }
+
+img#nebula {
+    border-radius: 30px;
+    position: fixed;
+    left: 1100px;
+    top: 150px;
+}
+
+div.stats, div.addexpend, div.allreimb{
+    width: 60px;
+    height: 60px;
+}
+
+h2#stats{
+    position: fixed;
+    left: 1100px;
+    top: 320px;
+    text-align: center;
+    color: white;
+    background-color: #1c4c74;
+    width: 300px;
+}
+
+h2#addexp{
+    position: fixed;
+    left: 720px;
+    top: 320px;
+    text-align: center;
+    color: white;
+    z-index: 2;
+    color: white;
+    background-color: #1c4c74;
+    width: 300px;
+}
+
+h2#allreimb{
+    position: fixed;
+    left: 720px;
+    top: 580px;
+    text-align: center;
+    color: black;
+    z-index: 3;
+    color: white;
+    background-color: #1c4c74;
+    border: 2px solid #5cace4;
+    padding: 10px;
+    border-radius: 8px;
+}
