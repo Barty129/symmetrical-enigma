@@ -1,3 +1,35 @@
+<?php
+$servername = "localhost";
+$database = "cusf_test";
+$username = "root";
+// Create connection
+$conn = mysqli_connect($servername, $username, "", $database);
+// Check connection
+if (!$conn) {
+      die("Connection failed: " . mysqli_connect_error());
+}
+ 
+$connection = "Connected successfully";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
+    $date_sub = $_POST['date'];
+    $approver = $_POST['approver'];
+    $proposer = $_POST['proposer'];
+    $cost = $_POST['cost'];
+    $description = $_POST['description'];
+    $reimburse = $_POST['reimburse'];
+    $sql = "INSERT INTO expenses (dateval, Namedesc, Cost, Proposer, Approver, Reciept, reimbursed) VALUES ('$date_sub', '$description', '$cost', '$proposer', '$approver', '$reimburse', '$reimburse')";
+    if (mysqli_query($conn, $sql)) {
+      $result = "New record created successfully";
+    } 
+    else {
+      $result =  "Error: " . $sql . "<br>" . mysqli_error($conn);
+    }
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,9 +41,6 @@
     <link rel="stylesheet" href="./stylesheet.css">
     <title>Document</title>
     
-    <style>
-
-    </style>
 </head>
 
 
@@ -32,15 +61,50 @@
             </div>
 
             <div class="sidebaritems">
-                <ul class="sidebaritems">
-                    <li class="sidebaritems"> Hello1
-                    <li class="sidebaritems"> Hello2
-                    <li class="sidebaritems"> Hello3
-                </ul>
+            <table cellpadding=3 width="580" class="sidebartable">
+                <tr>
+                </tr>
+            <?php
+            $rec_sql = "SELECT dateval, Namedesc, Cost, Proposer, Approver, Reciept, reimbursed FROM `expenses`" ."WHERE reimbursed='No'";
+            $res=mysqli_query($conn, $rec_sql);
+            while ($row=mysqli_fetch_array($res)) {
+                echo "<tr>\n";
+                echo "\t<td>".$row["Namedesc"]."</td>\n";
+                echo "\t<td>".$row["Proposer"]."</td>\n";
+                echo "\t<td>"."£".$row["Cost"]."</td>\n";
+
+                echo "\t<td>";
+                echo '<a href="./viewedit.php">Edit</a>';
+                echo "</tr>\n";
+            }
+
+            ?>
+            </table>
             </div>
 
             <div class="new_expense">
-                <h4>Non-reimbursed</h4>
+                <h4>Reimbursed</h4>
+            </div>
+
+            <div class="sidebaritems">
+            <table cellpadding=3 width="580" class="sidebartable">
+                <tr>
+                </tr>
+            <?php
+            $rec_sql = "SELECT dateval, Namedesc, Cost, Proposer, Approver, Reciept, reimbursed FROM `expenses`" ."WHERE reimbursed='Yes'";
+            $res=mysqli_query($conn, $rec_sql);
+            while ($row=mysqli_fetch_array($res)) {
+                echo "<tr>\n";
+                echo "\t<td>".$row["Namedesc"]."</td>\n";
+                echo "\t<td>".$row["Proposer"]."</td>\n";
+                echo "\t<td>"."£".$row["Cost"]."</td>\n";
+
+                echo "\t<td>";
+                echo '<a href="./viewedit.php">Edit</a>';
+                echo "</tr>\n";
+            }
+            ?>
+            </table>
             </div>
         </div>
 
@@ -67,6 +131,8 @@
     <a href="./allreimb.php"><h2 id="allreimb">All Reimbursements</h2></a>
     </div>
 
+
+    
 </body>
 
 <footer class="footer">

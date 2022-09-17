@@ -1,3 +1,47 @@
+<?php
+$servername = "localhost";
+$database = "cusf_test";
+$username = "root";
+// Create connection
+$conn2 = mysqli_connect($servername, $username, "", $database);
+// Check connection
+if (!$conn2) {
+      die("Connection failed: " . mysqli_connect_error());
+}
+ 
+$connection = "Connected successfully";
+
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
+    $date_proj = $_POST['date'];
+    $name = $_POST['Name'];
+    $ids = $_POST['_ID'];
+    $person_1 = $_POST['Personnel_1'];
+    $person_2 = $_POST['Personnel_2'];
+    $person_3 = $_POST['Personnel_3'];
+    $parent_proj = $_POST['p_project'];
+    $tpm_1 = $_POST['tpm1'];
+    $tpm_2 = $_POST['tpm2'];
+    $tpm_3 = $_POST['tpm3'];
+    $progress = $_POST['progress_state']; 
+    $p_require = $_POST['p_requirements'];
+    $c_require = $_POST['c_requirements'];
+    $r_require = $_POST['r_requirements'];
+    $comment = $_POST['extradetail'];
+    $sql = "INSERT INTO projects (dateval, name_sys , system_id, personnel_1, personnel_2, personnel_3, parent_proj, TPM_1, TPM_2, TPM_3,
+             progress, parent_require, child_require, related_require, comments) 
+            VALUES ('$date_proj', '$name', '$ids', '$person_1', '$person_2', '$person_3', '$parent_proj', '$tpm_1', '$tpm_2', '$tpm_3',
+             '$progress', '$p_require', '$c_require', '$r_require','$comment')";
+    if (mysqli_query($conn2, $sql)) {
+      $result = "New record created successfully";
+    } 
+    else {
+      $result =  "Error: " . $sql . "<br>" . mysqli_error($conn2);
+    }
+
+}
+
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -28,10 +72,32 @@
         <!--Top menu -->
         <div class="sidebar">
             <div class="new_expense">
-                <h4>Ongoing Projects</h4>
-                <h4>Archived</h4>
+                <h4>Projects</h4>
             </div>
-            <!--menu item-->
+
+                <div class="sidebaritems">
+            <table cellpadding=3 width="580" class="sidebartable">
+                <tr>
+                </tr>
+            <?php
+            $rec_sql = "SELECT name_sys, system_id, progress FROM `projects`";
+            $res=mysqli_query($conn2, $rec_sql);
+            while ($row=mysqli_fetch_array($res)) {
+                echo "<tr>\n";
+                echo "\t<td>".$row["name_sys"]."</td>\n";
+                echo "\t<td>".$row["system_id"]."</td>\n";
+                echo "\t<td>".$row["progress"]."</td>\n";
+                echo "</tr>\n";
+            }
+
+            ?>
+            </table>
+            </div>
+
+            <div class="new_expense">
+                <h4>Requirements</h4>
+            </div>
+
         </div>
 
     </div>
@@ -49,9 +115,9 @@
     </div>
 
     <div class="stats">
-        <a href="./tally.php"><img id="nebula" src="./Images/Nebula.jpg" alt="White Dwarf" width="300" 
+        <a href="./require.php"><img id="nebula" src="./Images/Nebula.jpg" alt="White Dwarf" width="300" 
      height="405"></a>
-        <h2 id="stats">See Stats</h2>
+        <h2 id="stats">Add Requirement</h2>
     </div>
 
 </body>

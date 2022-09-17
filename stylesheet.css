@@ -88,16 +88,6 @@ ul .navbar{
     border-top: 2px solid white;
   }
 
-  .sidebaritems ul{
-    text-align: center;
-    color: white;
-    padding: 5px 0;
-  }
-
-  .sidebaritems li{
-    margin: 10px 0;
-  }
-
 img#engine {
         border-radius: 30px;
         position: fixed;
@@ -154,7 +144,7 @@ h2#allreimb {
 }
 
 div.createexpform{
-  width: 800px;
+  width: 900px;
   height: 400px;
   text-align: left;
   position: fixed;
@@ -177,10 +167,87 @@ h4#cancel {
 }
 
 p.createexpform{
-  color: black;
+  color: #1c4c74;
+  height: 60px;
+  border-bottom: 1px solid #5cace4;
+  line-height: 60px;
+}
+
+p.createexpform2{
+  color: #1c4c74;
+  height: 80px;
+  border-bottom: 1px solid #5cace4;
+  line-height: 30px;
+}
+
+p.createexpform3{
+  color: #1c4c74;
+  height: 120px;
+  border-bottom: 1px solid #5cace4;
+  line-height: 20px;
 }
 
 #note {
   font-size: 12px;
   color: black;
+}
+
+#reimburse {
+  color: red;
+  font-size: 17px;
+}
+
+div.allreimbtable {
+  margin: auto;
+  width: 50%;
+  border: 1px solid black;
+  padding: 10px;
+
+}
+
+.sidebartable tr { 
+  line-height: 40px;
+  color: white;
+}
+
+ table.sidebartable{ 
+  padding-top: 10px;
+  padding-bottom: 20px;
+}
+
+div.stats {
+  position: fixed;
+  width: 600px;
+}
+
+img#pulsar {
+  border-radius: 30px;
+  position: fixed;
+  left: 750px;
+  top: 150px;
+}
+
+.stattable tr { 
+  line-height: 60px;
+  color: #1c4c74;
+  border-bottom: 1pt solid #1c4c74;
+}
+
+table.stattable{ 
+  position: fixed;
+  left: 20px;
+  padding-top: 10px;
+  padding-bottom: 20px;
+  width: 650px;
+  border-collapse: collapse;
+}
+
+.allreimbtable tr { 
+  line-height: 30px;
+  color: #1c4c74;
+}
+
+#projectform {
+  height:550px;
+  overflow-y:auto;
 }

@@ -1,5 +1,16 @@
 <?php 
     $date = date('d-m-Y');
+    $servername = "localhost";
+    $database = "cusf_test";
+    $username = "root";
+    // Create connection
+    $conn = mysqli_connect($servername, $username, "", $database);
+    // Check connection
+    if (!$conn) {
+      die("Connection failed: " . mysqli_connect_error());
+    }
+ 
+    $connection = "Connected successfully";
 ?>
 
 
@@ -30,6 +41,7 @@
     </nav>
 
 
+
     <div class="wrapper">
         <!--Top menu -->
         <div class="sidebar">
@@ -38,16 +50,54 @@
             </div>
 
             <div class="sidebaritems">
-                <ul class="sidebaritems">
-                    <li class="sidebaritems"> Hello1
-                    <li class="sidebaritems"> Hello2
-                    <li class="sidebaritems"> Hello3
-                </ul>
+            <table cellpadding=3 width="580" class="sidebartable">
+                <tr>
+                </tr>
+            <?php
+            $rec_sql = "SELECT dateval, Namedesc, Cost, Proposer, Approver, Reciept, reimbursed FROM `expenses`" ."WHERE reimbursed='No'";
+            $res=mysqli_query($conn, $rec_sql);
+            while ($row=mysqli_fetch_array($res)) {
+                echo "<tr>\n";
+                echo "\t<td>".$row["Namedesc"]."</td>\n";
+                echo "\t<td>".$row["Proposer"]."</td>\n";
+                echo "\t<td>"."£".$row["Cost"]."</td>\n";
+
+                echo "\t<td>";
+                echo '<a href="./viewedit.php">Edit</a>';
+                echo "</tr>\n";
+            }
+
+            ?>
+            </table>
             </div>
 
             <div class="new_expense">
-                <h4>Non-reimbursed</h4>
+                <h4>Reimbursed</h4>
             </div>
+
+            <div class="sidebaritems">
+            <table cellpadding=3 width="580" class="sidebartable">
+                <tr>
+                </tr>
+            <?php
+            $rec_sql = "SELECT dateval, Namedesc, Cost, Proposer, Approver, Reciept, reimbursed FROM `expenses`" ."WHERE reimbursed='Yes'";
+            $res=mysqli_query($conn, $rec_sql);
+            while ($row=mysqli_fetch_array($res)) {
+                echo "<tr>\n";
+                echo "\t<td>".$row["Namedesc"]."</td>\n";
+                echo "\t<td>".$row["Proposer"]."</td>\n";
+                echo "\t<td>"."£".$row["Cost"]."</td>\n";
+
+                echo "\t<td>";
+                echo '<a href="./viewedit.php">Edit</a>';
+                echo "</tr>\n";
+            }
+
+            mysqli_close($conn);
+            ?>
+            </table>
+            </div>
+
         </div>
 
     </div>
@@ -79,32 +129,42 @@
             <input type="text" id="q2" name="cost"><span>   inc VAT, delivery etc</span>
             </p>
             
-            <p  class="createexpform">
+            <p  class="createexpform2">
             <label for="propose">Proposed By</label>
             <select id="propose" name="proposer">
                 <option value="blank">----</option>
-                <option value="checkbook">CUSF Checkbook</option>
+                <option value="CUSF Checkbook">CUSF Checkbook</option>
             </select>
             <br>
-            <span id="note"><em>The name of the person who spent his/her own money. If it was paid for with the society chequebook, set this to "CUSF Chequebook" and put your name under "approved by".</em></spam>
+            <span id="note"><em>The name of the person who spent his/her own money. If it was paid for with the society chequebook, set this to "CUSF Chequebook".</em></spam>
             </p>
 
-            <p class="createexpform">
+            <p class="createexpform2">
             <label for="approve">Approved By</label>
             <select id="approve" name="approver">
                 <option value="blank">----</option>
-                <option value="barty">Barty Wardell</option>
-                <option value="abhi">Abhijit Pandit</option>
-                <option value="jamie">Jamie Russell</option>
-                <option value="kailen">Kailen Patel</option>
-                <option value="john">John Durrell</option>
+                <option value="Barty Wardell">Barty Wardell</option>
+                <option value="Abhijit Pandit">Abhijit Pandit</option>
+                <option value="Jamie Russell">Jamie Russell</option>
+                <option value="Kailen Patel">Kailen Patel</option>
+                <option value="John Durrell">John Durrell</option>
             </select>
+            <br>
             <span id="note"><em>This should be the second person who agreed that the purchase should be made.</em></span>
             </p>
 
             <p class="createexpform">
             <label for="file">Purchase Receipt</label>
             <input type="file" id="myFile" name="filename">
+            </p>
+
+            <p class="createexpform">
+            <label for="q4" id="reimburse">Reimbursed</label>
+            <select id="q4" name="reimburse">
+                <option value="blank">----</option>
+                <option value="No">No</option>
+                <option value="Yes">Yes</option>
+            </select>
             </p>
 
             <p class="createexpform">
@@ -123,3 +183,4 @@
 </footer>
 
 </html>
+
