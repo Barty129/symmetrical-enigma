@@ -11,18 +11,25 @@
  
     $connection = "Connected successfully";
 
-    $rec_sql = "SELECT dateval, Namedesc, Cost, Proposer, Approver, Reciept, reimbursed FROM `expenses`" ."WHERE reimbursed='No'";
+    $rec_sql = "SELECT Cost FROM `expenses`" ."WHERE reimbursed='No'";
     $res=mysqli_query($conn, $rec_sql);
     $totalowe = 0;
     while ($row=mysqli_fetch_array($res)) {
         $totalowe += $row["Cost"];
     }
 
-    $rec_sql = "SELECT dateval, Namedesc, Cost, Proposer, Approver, Reciept, reimbursed FROM `expenses`" ."WHERE reimbursed='Yes'";
+    $rec_sql = "SELECT Cost FROM `expenses`" ."WHERE reimbursed='Yes'";
     $res=mysqli_query($conn, $rec_sql);
     $totalreimb = 0;
     while ($row=mysqli_fetch_array($res)) {
         $totalreimb += $row["Cost"];
+    }
+
+    $rec_sql = "SELECT name_sys FROM `projects`";
+    $res=mysqli_query($conn, $rec_sql);
+    $noproject = 0;
+    while ($row=mysqli_fetch_array($res)) {
+        $noproject ++;
     }
 ?>
 
@@ -65,7 +72,7 @@
         <table class="stattable">
             <tr>
                 <td>Number of ongoing projects:</td>
-                <td></td>
+                <td><?=$noproject?></td>
             </tr>
             <tr>
                 <td>Money Currently Owed:</td>

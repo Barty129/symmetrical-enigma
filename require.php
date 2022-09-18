@@ -110,41 +110,58 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 <h4>Projects</h4>
             </div>
 
+            <br>
             <div class="sidebaritems">
             <table cellpadding=3 width="580" class="sidebartable">
                 <tr>
                 </tr>
             <?php
-            $rec_sql = "SELECT name_sys, system_id, progress, dateval FROM `projects`";
+            $rec_sql = "SELECT name_sys, system_id, progress, dateval, parent_require, child_require  FROM `projects`";
             $res=mysqli_query($conn1, $rec_sql);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
-                echo "\t<td>".$row["dateval"]."</td>\n";
                 echo "\t<td>".$row["name_sys"]."</td>\n";
                 echo "\t<td>".$row["system_id"]."</td>\n";
                 echo "\t<td>".$row["progress"]."</td>\n";
+                echo "</tr>\n";
+                echo "<tr>\n";
+                echo "\t<td width='150'></td>\n";
+                echo "\t<td>Parent Requirements:</td>\n";
+                echo "\t<td><em>".$row["parent_require"]."</em></td>\n";
+                echo "</tr>\n";
+                echo "<tr id='subnote'>\n";
+                echo "\t<td width='150'></td>\n";
+                echo "\t<td>Child Requirements:</td>\n";
+                echo "\t<td><em>".$row["child_require"]."</em></td>\n";
                 echo "</tr>\n";
             }
             ?>
             </table>
             </div>
-
+            <br>
             <div class="new_expense">
                 <h4>Requirements</h4>
             </div>
 
+            <br>
             <div class="sidebaritems">
             <table cellpadding=3 width="580" class="sidebartable">
                 <tr>
                 </tr>
             <?php
-            $rec_sql2 = "SELECT Namedesc, sys_id, dateval FROM `requirements`";
+            $rec_sql2 = "SELECT ID, Namedesc, sys_id, dateval FROM `requirements`";
             $res=mysqli_query($conn1, $rec_sql2);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
                 echo "\t<td>".$row["dateval"]."</td>\n";
                 echo "\t<td>".$row["Namedesc"]."</td>\n";
                 echo "\t<td>".$row["sys_id"]."</td>\n";
+
+                echo "\t<td>";
+                echo "<form method='post' action='./requireviewedit.php'>";
+                echo "<input type='hidden' name='trackid' value='" . $row["ID"] . "'>";
+                echo "<input type='submit' value='View/Edit'>";
+                echo "</form>";
                 echo "</tr>\n";
             }
 
@@ -300,6 +317,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             <input type="submit" value="Submit">
             <input type="reset">
             </p>
+            <br>
         </form>
     </div>
 

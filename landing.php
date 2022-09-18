@@ -12,18 +12,21 @@ if (!$conn) {
 $connection = "Connected successfully";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
-    $date_sub = $_POST['date'];
-    $approver = $_POST['approver'];
-    $proposer = $_POST['proposer'];
-    $cost = $_POST['cost'];
-    $description = $_POST['description'];
-    $reimburse = $_POST['reimburse'];
-    $sql = "INSERT INTO expenses (dateval, Namedesc, Cost, Proposer, Approver, Reciept, reimbursed) VALUES ('$date_sub', '$description', '$cost', '$proposer', '$approver', '$reimburse', '$reimburse')";
-    if (mysqli_query($conn, $sql)) {
-      $result = "New record created successfully";
-    } 
+    $date_update = $_POST['date_update'];
+    $approver_update = $_POST['approver_update'];
+    $proposer_update = $_POST['proposer_update'];
+    $cost_update = $_POST['cost_update'];
+    $description_update = $_POST['description_update'];
+    $reimburse_update = $_POST['reimburse_update'];
+    $update_select = $_POST['save_ID'];
+    $sql_update = "UPDATE `expenses` SET dateval='$date_update', Namedesc='$description_update', Cost='$cost_update', Proposer='$proposer_update', 
+        Approver='$approver_update', Reciept='$reimburse_update', reimbursed='$reimburse_update'
+         " . "WHERE ID='" . $update_select . "'";
+    if (mysqli_query($conn, $sql_update)) {
+        $result = "Record Updated";
+    }
     else {
-      $result =  "Error: " . $sql . "<br>" . mysqli_error($conn);
+        $result =  "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
 
 }
@@ -60,21 +63,26 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 <h4>Non-reimbursed</h4>
             </div>
 
+            <br>
             <div class="sidebaritems">
             <table cellpadding=3 width="580" class="sidebartable">
                 <tr>
                 </tr>
             <?php
-            $rec_sql = "SELECT dateval, Namedesc, Cost, Proposer, Approver, Reciept, reimbursed FROM `expenses`" ."WHERE reimbursed='No'";
+            $rec_sql = "SELECT ID, dateval, Namedesc, Cost, Proposer, Approver, Reciept, reimbursed FROM `expenses`" ."WHERE reimbursed='No'";
             $res=mysqli_query($conn, $rec_sql);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
                 echo "\t<td>".$row["Namedesc"]."</td>\n";
                 echo "\t<td>".$row["Proposer"]."</td>\n";
                 echo "\t<td>"."£".$row["Cost"]."</td>\n";
+                
 
                 echo "\t<td>";
-                echo '<a href="./viewedit.php">Edit</a>';
+                echo "<form method='post' action='./viewedit.php'>";
+                echo "<input type='hidden' name='trackid' value='" . $row["ID"] . "'>";
+                echo "<input type='submit' value='View/Edit'>";
+                echo "</form>";
                 echo "</tr>\n";
             }
 
@@ -82,25 +90,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             </table>
             </div>
 
+            <br>
             <div class="new_expense">
                 <h4>Reimbursed</h4>
             </div>
 
+            <br>
             <div class="sidebaritems">
             <table cellpadding=3 width="580" class="sidebartable">
                 <tr>
                 </tr>
             <?php
-            $rec_sql = "SELECT dateval, Namedesc, Cost, Proposer, Approver, Reciept, reimbursed FROM `expenses`" ."WHERE reimbursed='Yes'";
+            $rec_sql = "SELECT ID, dateval, Namedesc, Cost, Proposer, Approver, Reciept, reimbursed FROM `expenses`" ."WHERE reimbursed='Yes'";
             $res=mysqli_query($conn, $rec_sql);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
-                echo "\t<td>".$row["Namedesc"]."</td>\n";
+                echo "\t<td><a href='./viewedit.php'>".$row["Namedesc"]."</a></td>\n";
                 echo "\t<td>".$row["Proposer"]."</td>\n";
                 echo "\t<td>"."£".$row["Cost"]."</td>\n";
 
                 echo "\t<td>";
-                echo '<a href="./viewedit.php">Edit</a>';
+                echo "<form method='post' action='./viewedit.php'>";
+                echo "<input type='hidden' name='trackid' value='" . $row["ID"] . "'>";
+                echo "<input type='submit' value='View/Edit'>";
+                echo "</form>";
                 echo "</tr>\n";
             }
             ?>

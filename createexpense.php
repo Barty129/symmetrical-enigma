@@ -11,9 +11,25 @@
     }
  
     $connection = "Connected successfully";
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST"){
+        $date_sub = $_POST['date'];
+        $approver = $_POST['approver'];
+        $proposer = $_POST['proposer'];
+        $cost = $_POST['cost'];
+        $description = $_POST['description'];
+        $reimburse = $_POST['reimburse'];
+        $sql = "INSERT INTO expenses (dateval, Namedesc, Cost, Proposer, Approver, Reciept, reimbursed) VALUES ('$date_sub', '$description', '$cost', '$proposer', '$approver', '$reimburse', '$reimburse')";
+        if (mysqli_query($conn, $sql)) {
+            $result = "New record created successfully";
+            header( "refresh:1;url=./landing.php" );
+        }
+        else {
+            $result =  "Error: " . $sql . "<br>" . mysqli_error($conn2);
+        }
+
+    }
 ?>
-
-
 
 <!DOCTYPE html>
 <html lang="en">
@@ -49,6 +65,7 @@
                 <h4>Non-reimbursed</h4>
             </div>
 
+            <br>
             <div class="sidebaritems">
             <table cellpadding=3 width="580" class="sidebartable">
                 <tr>
@@ -58,12 +75,10 @@
             $res=mysqli_query($conn, $rec_sql);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
-                echo "\t<td>".$row["Namedesc"]."</td>\n";
+                echo "\t<td><a href='./viewedit.php'>".$row["Namedesc"]."</a></td>\n";
                 echo "\t<td>".$row["Proposer"]."</td>\n";
                 echo "\t<td>"."£".$row["Cost"]."</td>\n";
 
-                echo "\t<td>";
-                echo '<a href="./viewedit.php">Edit</a>';
                 echo "</tr>\n";
             }
 
@@ -71,10 +86,12 @@
             </table>
             </div>
 
+            <br>
             <div class="new_expense">
                 <h4>Reimbursed</h4>
             </div>
 
+            <br>
             <div class="sidebaritems">
             <table cellpadding=3 width="580" class="sidebartable">
                 <tr>
@@ -84,12 +101,10 @@
             $res=mysqli_query($conn, $rec_sql);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
-                echo "\t<td>".$row["Namedesc"]."</td>\n";
+                echo "\t<td><a href='./viewedit.php'>".$row["Namedesc"]."</a></td>\n";
                 echo "\t<td>".$row["Proposer"]."</td>\n";
                 echo "\t<td>"."£".$row["Cost"]."</td>\n";
 
-                echo "\t<td>";
-                echo '<a href="./viewedit.php">Edit</a>';
                 echo "</tr>\n";
             }
 
@@ -113,7 +128,7 @@
 
     
     <div class="createexpform">
-        <form class="createexpform" method="POST" action="./landing.php">
+        <form class="createexpform" method="POST">
             <p class="createexpform">
             <label for="q1">Date</label>
             <input type="text" id="q1" name="date" value="<?php echo $date?>">

@@ -23,7 +23,7 @@ body{
     height: 100%;
     padding: 10px 0;
     transition: all 0.5s ease;
-    z-index: -1
+    z-index: -1;
 }
 
 ul .navbar{
@@ -103,8 +103,8 @@ img#nebula {
 }
 
 div.stats, div.addexpend, div.allreimb, div.cancel {
-    width: 60px;
-    height: 60px;
+    width: 1px;
+    height: 1px;
 }
 
 h2#stats{
@@ -220,9 +220,14 @@ div.allreimbtable {
   color: white;
 }
 
+.sidebartable td {
+  text-align: center
+}
+
  table.sidebartable{ 
   padding-top: 10px;
   padding-bottom: 20px;
+  border-collapse: collapse;
 }
 
 div.stats {
@@ -245,11 +250,12 @@ img#pulsar {
 
 table.stattable{ 
   position: fixed;
-  left: 20px;
+  border-collapse: collapse;
+  left: 40px;
+  top: 170px;
   padding-top: 10px;
   padding-bottom: 20px;
   width: 650px;
-  border-collapse: collapse;
 }
 
 .allreimbtable tr { 
@@ -258,7 +264,7 @@ table.stattable{
 }
 
 #projectform {
-  height:550px;
+  height:530px;
   overflow-y:auto;
 }
 
@@ -267,4 +273,12 @@ p.requiretitle {
   height: 60px;
   line-height: 60px;
   font-size: 20px;
+}
+
+tr#subnote { 
+  border-bottom: 1pt solid black;
+}
+
+a:visited, a:active{
+  color: white;
 }

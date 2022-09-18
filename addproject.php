@@ -11,7 +11,47 @@
     }
  
     $connection = "Connected successfully";
+
+    if ($_SERVER["REQUEST_METHOD"] == "POST"){
+        $date_proj = $_POST['date'];
+        $name = $_POST['Name'];
+        $ids = $_POST['_ID'];
+    
+        $person_1 = $_POST['Personnel_1'];
+        $person_2 = $_POST['Personnel_2'];
+        $person_3 = $_POST['Personnel_3'];
+    
+        $parent_proj = $_POST['p_project'];
+    
+        $tpm_1 = $_POST['tpm1'];
+        $tpm_2 = $_POST['tpm2'];
+        $tpm_3 = $_POST['tpm3'];
+    
+        $progress = $_POST['progress_state']; 
+        $p_require = $_POST['p_requirements'];
+        $c_require = $_POST['c_requirements'];
+        $r_require = $_POST['r_requirements']; 
+    
+        $comment = $_POST['extradetail'];
+        $current_sol = $_POST['current_sol'];
+        $current_defi = $_POST['defi_sol'];
+        $crit_path = $_POST['crit_path'];
+    
+        $sql_r = "INSERT INTO projects (dateval, name_sys , system_id, personnel_1, personnel_2, personnel_3, parent_proj, TPM_1, TPM_2, TPM_3,
+                 progress, parent_require, child_require, related_require, comments, current_sol, current_defi, critical_path) 
+                VALUES ('$date_proj', '$name', '$ids', '$person_1', '$person_2', '$person_3', '$parent_proj', '$tpm_1', '$tpm_2', '$tpm_3',
+                 '$progress', '$p_require', '$c_require', '$r_require','$comment','$current_sol', '$current_defi', '$crit_path')";
+        if (mysqli_query($conn1, $sql_r)) {
+            $result = "New record created successfully";
+            header( "refresh:1;url=./projects.php" );
+        }
+        else {
+            $result =  "Error: " . $sql . "<br>" . mysqli_error($conn2);
+        }
+    
+    }
 ?>
+
 
 
 <?php 
@@ -51,20 +91,29 @@
             <div class="new_expense">
                 <h4>Projects</h4>
             </div>
-
+            <br>
             <div class="sidebaritems">
             <table cellpadding=3 width="580" class="sidebartable">
                 <tr>
                 </tr>
             <?php
-            $rec_sql = "SELECT name_sys, system_id, progress, dateval FROM `projects`";
+            $rec_sql = "SELECT name_sys, system_id, progress, dateval, parent_require, child_require  FROM `projects`";
             $res=mysqli_query($conn1, $rec_sql);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
-                echo "\t<td>".$row["dateval"]."</td>\n";
                 echo "\t<td>".$row["name_sys"]."</td>\n";
                 echo "\t<td>".$row["system_id"]."</td>\n";
                 echo "\t<td>".$row["progress"]."</td>\n";
+                echo "</tr>\n";
+                echo "<tr>\n";
+                echo "\t<td width='150'></td>\n";
+                echo "\t<td>Parent Requirements:</td>\n";
+                echo "\t<td><em>".$row["parent_require"]."</em></td>\n";
+                echo "</tr>\n";
+                echo "<tr id='subnote'>\n";
+                echo "\t<td width='150'></td>\n";
+                echo "\t<td>Child Requirements:</td>\n";
+                echo "\t<td><em>".$row["child_require"]."</em></td>\n";
                 echo "</tr>\n";
             }
 
@@ -72,25 +121,32 @@
             </table>
             </div>
 
+            <br>
+
             <div class="new_expense">
                 <h4>Requirements</h4>
             </div>
+            <br>
             <div class="sidebaritems">
             <table cellpadding=3 width="580" class="sidebartable">
                 <tr>
                 </tr>
             <?php
-            $rec_sql2 = "SELECT Namedesc, sys_id, dateval FROM `requirements`";
+            $rec_sql2 = "SELECT ID, Namedesc, sys_id, dateval FROM `requirements`";
             $res=mysqli_query($conn1, $rec_sql2);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
                 echo "\t<td>".$row["dateval"]."</td>\n";
                 echo "\t<td>".$row["Namedesc"]."</td>\n";
                 echo "\t<td>".$row["sys_id"]."</td>\n";
+
+                echo "\t<td>";
+                echo "<form method='post' action='./requireviewedit.php'>";
+                echo "<input type='hidden' name='trackid' value='" . $row["ID"] . "'>";
+                echo "<input type='submit' value='View/Edit'>";
+                echo "</form>";
                 echo "</tr>\n";
             }
-
-            mysqli_close($conn1);
             ?>
             </table>
             </div>
@@ -110,7 +166,7 @@
 
     
     <div class="createexpform">
-        <form class="createexpform" method="POST" action="./projects.php" id="projectform">
+        <form class="createexpform" method="POST" id="projectform">
             <p class="createexpform">
             <label for="q1">Date</label>
             <input type="text" id="q1" name="date" value="<?php echo $date?>">
@@ -137,7 +193,14 @@
             <label for="q5">Parent Project</label>
             <select id="q5" name="p_project">
                 <option value="blank">----</option>
-                <option value="Sample Project">Sample Project</option>
+                <?php
+                $rec_sql = "SELECT name_sys FROM `projects`";
+                $res=mysqli_query($conn1, $rec_sql);
+                while ($row=mysqli_fetch_array($res)) {
+                    echo "<option value=" . $row["name_sys"] . ">" . $row["name_sys"] . "</option>";
+                }
+
+            ?>
             </select>
             </p>
 
@@ -180,7 +243,15 @@
             <label for="q8">Parent Requirements</label>
             <select id="q8" name="p_requirements">
                 <option value="blank">----</option>
-                <option value="Sample Requirements_p">Sample Requirements</option>
+                <?php
+                $rec_sql2 = "SELECT Namedesc FROM `requirements`";
+                $res=mysqli_query($conn1, $rec_sql2);
+                while ($row=mysqli_fetch_array($res)) {
+                    echo "<option value=" . $row["Namedesc"] . ">" . $row["Namedesc"] . "</option>";
+
+                }
+
+                ?>
             </select>
             </p>
 
@@ -188,7 +259,15 @@
             <label for="q9">Child Requirements</label>
             <select id="q9" name="c_requirements">
                 <option value="blank">----</option>
-                <option value="Sample Requirements_c">Sample Requirements</option>
+                <?php
+                $rec_sql2 = "SELECT Namedesc FROM `requirements`";
+                $res=mysqli_query($conn1, $rec_sql2);
+                while ($row=mysqli_fetch_array($res)) {
+                    echo "<option value=" . $row["Namedesc"] . ">" . $row["Namedesc"] . "</option>";
+
+                }
+
+                ?>
             </select>
             </p>
 
@@ -196,7 +275,16 @@
             <label for="q10">Related Requirements</label>
             <select id="q10" name="r_requirements">
                 <option value="blank">----</option>
-                <option value="Sample Requirements_r">Sample Requirements</option>
+                <?php
+                $rec_sql2 = "SELECT Namedesc FROM `requirements`";
+                $res=mysqli_query($conn1, $rec_sql2);
+                while ($row=mysqli_fetch_array($res)) {
+                    echo "<option value=" . $row["Namedesc"] . ">" . $row["Namedesc"] . "</option>";
+
+                }
+
+                mysqli_close($conn1);
+                ?>
             </select>
             </p>
 
