@@ -10,6 +10,48 @@ if (!$conn2) {
 }
  
 $connection = "Connected successfully";
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST"){
+    $update_select = $_POST['save_ID'];
+
+    $date_proj_upds = $_POST['date_update'];
+    $name_upds = $_POST['Name_update'];
+    $ids_upds = $_POST['_ID_update'];
+
+    $person_1_upds = $_POST['Personnel_1_update'];
+    $person_2_upds = $_POST['Personnel_2_update'];
+    $person_3_upds = $_POST['Personnel_3_update'];
+
+    $parent_proj_upds = $_POST['p_project_update'];
+
+    $tpm_1_upds = $_POST['tpm1_update'];
+    $tpm_2_upds = $_POST['tpm2_update'];
+    $tpm_3_upds = $_POST['tpm3_update'];
+
+    $progress_upds = $_POST['progress_state_update']; 
+    $p_require_upds = $_POST['p_requirements_update'];
+    $c_require_upds = $_POST['c_requirements_update'];
+    $r_require_upds = $_POST['r_requirements_update']; 
+
+    $comment_upds = $_POST['extradetail_update'];
+    $current_sol_upds = $_POST['current_sol_update'];
+    $current_defi_upds = $_POST['defi_sol_update'];
+    $crit_path_upds = $_POST['crit_path_update'];
+
+    $sql_update = "UPDATE `projects` SET dateval='$date_proj_upds', name_sys='$name_upds' , system_id='$ids_upds', personnel_1='$person_1_upds', personnel_2='$person_2_upds', 
+    personnel_3='$person_3_upds', parent_proj='$parent_proj_upds', TPM_1='$tpm_1_upds', TPM_2='$tpm_1_upds', TPM_3='$tpm_1_upds', progress='$progress_upds', 
+    parent_require='$p_require_upds', child_require='$c_require_upds', related_require='$r_require_upds', comments='$comment_upds', current_sol='$current_sol_upds',
+    current_defi='$current_defi_upds', critical_path='$crit_path_upds' " . "WHERE ID='" . $update_select . "'";
+
+    if (mysqli_query($conn2, $sql_update)) {
+        $result = "Record Updated";
+    }
+    else {
+        $result =  "Error: " . $sql . "<br>" . mysqli_error($conn2);
+    }
+}
+
 ?>
 
 <!DOCTYPE html>
@@ -50,21 +92,24 @@ $connection = "Connected successfully";
                 <tr>
                 </tr>
             <?php
-            $rec_sql = "SELECT name_sys, system_id, progress, dateval, parent_require, child_require FROM `projects`";
+            $rec_sql = "SELECT ID, name_sys, system_id, progress, dateval, parent_require, child_require FROM `projects`";
             $res=mysqli_query($conn2, $rec_sql);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
                 echo "\t<td>".$row["name_sys"]."</td>\n";
                 echo "\t<td>".$row["system_id"]."</td>\n";
                 echo "\t<td>".$row["progress"]."</td>\n";
+                echo "\t<td>";
+                echo "<form method='post' action='./projectviewedit.php'>";
+                echo "<input type='hidden' name='trackid' value='" . $row["ID"] . "'>";
+                echo "<input type='submit' value='View/Edit'>";
+                echo "</form>";
                 echo "</tr>\n";
                 echo "<tr>\n";
-                echo "\t<td width='150'></td>\n";
                 echo "\t<td>Parent Requirements:</td>\n";
                 echo "\t<td><em>".$row["parent_require"]."</em></td>\n";
                 echo "</tr>\n";
                 echo "<tr id='subnote'>\n";
-                echo "\t<td width='150'></td>\n";
                 echo "\t<td>Child Requirements:</td>\n";
                 echo "\t<td><em>".$row["child_require"]."</em></td>\n";
                 echo "</tr>\n";

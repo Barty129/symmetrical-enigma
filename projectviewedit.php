@@ -13,43 +13,31 @@
     $connection = "Connected successfully";
 
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
-        $date_proj = $_POST['date'];
-        $name = $_POST['Name'];
-        $ids = $_POST['_ID'];
-    
-        $person_1 = $_POST['Personnel_1'];
-        $person_2 = $_POST['Personnel_2'];
-        $person_3 = $_POST['Personnel_3'];
-    
-        $parent_proj = $_POST['p_project'];
-    
-        $tpm_1 = $_POST['tpm1'];
-        $tpm_2 = $_POST['tpm2'];
-        $tpm_3 = $_POST['tpm3'];
-    
-        $progress = $_POST['progress_state']; 
-        $p_require = $_POST['p_requirements'];
-        $c_require = $_POST['c_requirements'];
-        $r_require = $_POST['r_requirements']; 
-    
-        $comment = $_POST['extradetail'];
-        $current_sol = $_POST['current_sol'];
-        $current_defi = $_POST['defi_sol'];
-        $crit_path = $_POST['crit_path'];
-    
-        $sql_r = "INSERT INTO projects (dateval, name_sys , system_id, personnel_1, personnel_2, personnel_3, parent_proj, TPM_1, TPM_2, TPM_3,
-                 progress, parent_require, child_require, related_require, comments, current_sol, current_defi, critical_path) 
-                VALUES ('$date_proj', '$name', '$ids', '$person_1', '$person_2', '$person_3', '$parent_proj', '$tpm_1', '$tpm_2', '$tpm_3',
-                 '$progress', '$p_require', '$c_require', '$r_require','$comment','$current_sol', '$current_defi', '$crit_path')";
-        if (mysqli_query($conn1, $sql_r)) {
-            $result = "New record created successfully";
-            header( "refresh:1;url=./projects.php" );
-        }
-        else {
-            $result =  "Error: " . $sql . "<br>" . mysqli_error($conn2);
-        }
-    
+        $tracker = $_POST['trackid'];
+        $pro_sql = "SELECT ID, dateval, name_sys, system_id, personnel_1, personnel_2, personnel_3, parent_proj, TPM_1, TPM_2, TPM_3,
+        progress,  parent_require, child_require, related_require, comments, current_sol, current_defi, critical_path FROM `projects`";
+        $res=mysqli_query($conn1, $pro_sql);
+        while ($row=mysqli_fetch_array($res)) {
+                $old_date = $row["dateval"];
+                $old_name = $row["name_sys"];
+                $old_sysid = $row["system_id"];
+                $old_person1 = $row["personnel_1"];
+                $old_person2 = $row["personnel_2"];
+                $old_person3 = $row["personnel_3"];
+                $old_parentproj = $row["parent_proj"];
+                $old_tpm1 = $row["TPM_1"];
+                $old_tpm2 = $row["TPM_2"];
+                $old_tpm3 = $row["TPM_3"];
+                $old_progress = $row["progress"];
+                $old_parentreq = $row["parent_require"];
+                $old_childreq = $row["child_require"];
+                $old_relatedreq = $row["related_require"];
+                $old_comments = $row["comments"];
+                $old_currentsol = $row["current_sol"];
+                $old_currentdefi = $row["current_defi"];
+                $old_critpath = $row["critical_path"];
     }
+}    
 ?>
 
 
@@ -169,33 +157,33 @@
 
     
     <div class="createexpform">
-        <form class="createexpform" method="POST" id="projectform">
+        <form class="createexpform" method="POST" id="projectform" action="./projects.php">
             <p class="createexpform">
             <label for="q1">Date</label>
-            <input type="text" id="q1" name="date" value="<?php echo $date?>">
+            <input type="text" id="q1" name="date_update" value="<?=$old_date?>">
             </p>
 
             <p class="createexpform">
             <span><label for="q2">Project Name</label></span>
-            <input type="text" id="q2" name="Name">
+            <input type="text" id="q2" name="Name_update" value="<?=$old_name?>">
             </p>
 
             <p class="createexpform">
             <span><label for="q3">ID</label></span>
-            <input type="text" id="q3" name="_ID">
+            <input type="text" id="q3" name="_ID_update" value="<?=$old_sysid?>">
             </p>
 
             <p class="createexpform">
             <span><label for="q4">Responsible Personnel:</label></span>
-            <input type="text" id="q4" name="Personnel_1">,
-            <input type="text" name="Personnel_2">,
-            <input type="text" name="Personnel_3">
+            <input type="text" id="q4" name="Personnel_1_update" value="<?=$old_person1?>">,
+            <input type="text" name="Personnel_2_update" value="<?=$old_person2?>">,
+            <input type="text" name="Personnel_3_update" value="<?=$old_person3?>">
             </p>
 
             <p  class="createexpform">
             <label for="q5">Parent Project</label>
-            <select id="q5" name="p_project">
-                <option value="blank">----</option>
+            <select id="q5" name="p_project_update">
+                <option value="<?=$old_parentproj?>"><?=$old_parentproj?></option>
                 <?php
                 $rec_sql = "SELECT name_sys FROM `projects`";
                 $res=mysqli_query($conn1, $rec_sql);
@@ -209,9 +197,9 @@
 
             <p  class="createexpform">
             <label for="q6">Technical Performance Metric:</label>
-            <input type="text" list="tpms" id="q6" name="tpm1">,
-            <input type="text" list="tpms" name="tpm2">,
-            <input type="text" list="tpms" name="tpm3">
+            <input type="text" list="tpms" id="q6" name="tpm1_update" value="<?=$old_tpm1?>">,
+            <input type="text" list="tpms" name="tpm2_update" value="<?=$old_tpm2?>">,
+            <input type="text" list="tpms" name="tpm3_update" value="<?=$old_tpm3?>">
  
             <datalist id="tpms">
                 <option value="Mass"></option>
@@ -225,8 +213,8 @@
 
             <p  class="createexpform2">
             <label for="q7">Progress State</label>
-            <select id="q7" name="progress_state">
-                <option value="blank">----</option>
+            <select id="q7" name="progress_state_update">
+                <option value="<?=$old_progress?>"><?=$old_progress?></option>
                 <option value="SRR">System Requirements Review</option>
                 <option value="PDR">Preliminary Design Review</option>
                 <option value="CDR">Critical Design Review</option>
@@ -244,8 +232,8 @@
 
             <p  class="createexpform">
             <label for="q8">Parent Requirements</label>
-            <select id="q8" name="p_requirements">
-                <option value="blank">----</option>
+            <select id="q8" name="p_requirements_update">
+                <option value="<?=$old_parentreq?>"><?=$old_parentreq?></option>
                 <?php
                 $rec_sql2 = "SELECT Namedesc FROM `requirements`";
                 $res=mysqli_query($conn1, $rec_sql2);
@@ -260,8 +248,8 @@
 
             <p  class="createexpform">
             <label for="q9">Child Requirements</label>
-            <select id="q9" name="c_requirements">
-                <option value="blank">----</option>
+            <select id="q9" name="c_requirements_update">
+                <option value="<?=$old_childreq?>"><?=$old_childreq?></option>
                 <?php
                 $rec_sql2 = "SELECT Namedesc FROM `requirements`";
                 $res=mysqli_query($conn1, $rec_sql2);
@@ -276,8 +264,8 @@
 
             <p  class="createexpform">
             <label for="q10">Related Requirements</label>
-            <select id="q10" name="r_requirements">
-                <option value="blank">----</option>
+            <select id="q10" name="r_requirements_update">
+                <option value="<?=$old_relatedreq?>"><?=$old_relatedreq?></option>
                 <?php
                 $rec_sql2 = "SELECT Namedesc FROM `requirements`";
                 $res=mysqli_query($conn1, $rec_sql2);
@@ -298,31 +286,38 @@
             <p  class="createexpform4">
             <label for="q12">Current Solution</label>
             <br>
-            <textarea style="resize: none;" id="q12" name="current_sol" rows="4" cols="100"></textarea>
+            <textarea style="resize: none;" id="q12" name="current_sol_update" rows="4" cols="100"><?=$old_currentsol?></textarea>
             </p>
 
             <p  class="createexpform4">
             <label for="q13">Deficiencies in Current Solution</label>
             <br>
-            <textarea style="resize: none;" id="q13" name="defi_sol" rows="4" cols="100"></textarea>
+            <textarea style="resize: none;" id="q13" name="defi_sol_update" rows="4" cols="100"><?=$old_currentdefi?></textarea>
             </p>
 
             <p  class="createexpform4">
             <label for="q14">Additional Critical-Path Work</label>
             <br>
-            <textarea style="resize: none;" id="q14" name="crit_path" rows="4" cols="100"></textarea>
+            <textarea style="resize: none;" id="q14" name="crit_path_update" rows="4" cols="100"><?=$old_critpath?></textarea>
             </p>
 
             <p  class="createexpform3">
             <label for="q11">Comments</label>
             <br>
-            <textarea style="resize: none;" id="q11" name="extradetail" rows="4" cols="100"></textarea>
+            <textarea style="resize: none;" id="q11" name="extradetail_update" rows="4" cols="100"><?=$old_comments?></textarea>
             </p>
 
-            <p class="createexpform">
-            <input type="submit" value="Submit">
-            <input type="reset">
-            </p>
+            <input type='hidden' name='save_ID' value='<?=$tracker?>'>
+            <input type="submit" value="Save">
+        </form>
+
+        <form method="POST" action="./deleteproj.php">
+            <input type='hidden' name='ID_delete' value='<?=$tracker?>'>
+            <input type="submit" value="Delete">
+        </form>
+
+
+
         </form>
     </div>
 

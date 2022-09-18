@@ -187,7 +187,7 @@
             <input type="submit" value="Save">
         </form>
 
-        <form method="POST" action="./deletedproj.php">
+        <form method="POST" action="./deleteexp.php">
             <input type='hidden' name='ID_delete' value='<?=$tracker?>'>
             <input type="submit" value="Delete">
         </form>

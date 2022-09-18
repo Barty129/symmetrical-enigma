@@ -62,7 +62,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $sql_r = "INSERT INTO requirements (dateval, Namedesc , sys_id, desirable_1, desirable_2, desirable_3, essential_1, essential_2, essential_3, preferable_1,
     preferable_2, preferable_3, sysint_1, sysint_2, sysint_3, perfvals_1, perfvals_2, perfvals_3, intproc_1, intproc_2, intproc_3, failmodes_1, 
     failmodes_2, failmodes_3, designdocu_1, designdocu_2, designdocu_3, funcdocu_1, funcdocu_2, funcdocu_3, opsproc_1, opsproc_2, opsproc_3) 
-   VALUES ('$date_proj_r', '$name_r', '$ids_r', '$essential1_r', '$essential2_r', '$essential3_r', '$desirable1_r', '$desirable2_r', '$desirable3_r', '$preferable1_r', 
+   VALUES ('$date_proj_r', '$name_r', '$ids_r', '$desirable1_r', '$desirable2_r', '$desirable3_r', '$essential1_r', '$essential2_r', '$essential3_r', '$preferable1_r', 
       '$preferable2_r', '$preferable3_r', '$sysi1_r', '$sysi2_r','$sysi3_r','$perfval1_r', '$perfval2_r', '$perfval3_r', '$intpro1_r', '$intpro2_r', '$intpro3_r',
      '$failerror1_r', '$failerror2_r', '$failerror3_r', '$designdocu1_r', '$designdocu2_r', '$designdocu3_r', '$funcdocu1_r', '$funcdocu2_r', '$funcdocu3_r', 
      '$opspro1_r', '$opspro2_r', '$opspro3_r')";
@@ -116,13 +116,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 <tr>
                 </tr>
             <?php
-            $rec_sql = "SELECT name_sys, system_id, progress, dateval, parent_require, child_require  FROM `projects`";
+            $rec_sql = "SELECT ID, name_sys, system_id, progress, dateval, parent_require, child_require  FROM `projects`";
             $res=mysqli_query($conn1, $rec_sql);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
                 echo "\t<td>".$row["name_sys"]."</td>\n";
                 echo "\t<td>".$row["system_id"]."</td>\n";
                 echo "\t<td>".$row["progress"]."</td>\n";
+                echo "\t<td>";
+                echo "<form method='post' action='./projectviewedit.php'>";
+                echo "<input type='hidden' name='trackid' value='" . $row["ID"] . "'>";
+                echo "<input type='submit' value='View/Edit'>";
+                echo "</form>";
                 echo "</tr>\n";
                 echo "<tr>\n";
                 echo "\t<td width='150'></td>\n";

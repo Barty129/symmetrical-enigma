@@ -106,21 +106,24 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 <tr>
                 </tr>
             <?php
-            $rec_sql = "SELECT name_sys, system_id, progress, dateval, parent_require, child_require  FROM `projects`";
+            $rec_sql = "SELECT ID, name_sys, system_id, progress, dateval, parent_require, child_require  FROM `projects`";
             $res=mysqli_query($conn1, $rec_sql);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
                 echo "\t<td>".$row["name_sys"]."</td>\n";
                 echo "\t<td>".$row["system_id"]."</td>\n";
                 echo "\t<td>".$row["progress"]."</td>\n";
+                echo "\t<td>";
+                echo "<form method='post' action='./projectviewedit.php'>";
+                echo "<input type='hidden' name='trackid' value='" . $row["ID"] . "'>";
+                echo "<input type='submit' value='View/Edit'>";
+                echo "</form>";
                 echo "</tr>\n";
                 echo "<tr>\n";
-                echo "\t<td width='150'></td>\n";
                 echo "\t<td>Parent Requirements:</td>\n";
                 echo "\t<td><em>".$row["parent_require"]."</em></td>\n";
                 echo "</tr>\n";
                 echo "<tr id='subnote'>\n";
-                echo "\t<td width='150'></td>\n";
                 echo "\t<td>Child Requirements:</td>\n";
                 echo "\t<td><em>".$row["child_require"]."</em></td>\n";
                 echo "</tr>\n";
@@ -196,23 +199,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             </p>
 
             <p  class="createexpform4">
-            <label for="q11">Desirable</label>
+            <label for="q11">Essential</label>
             <br>
-            1. <textarea style="resize: none;" id="q11" name="essential1_update" rows="1" cols="100"><?=$old_des1?></textarea>
+            1. <textarea style="resize: none;" id="q11" name="essential1_update" rows="1" cols="100"><?=$old_essen1?></textarea>
             <br>
-            2. <textarea style="resize: none;" name="essential2_update" rows="1" cols="100"><?=$old_des2?></textarea>
+            2. <textarea style="resize: none;" name="essential2_update" rows="1" cols="100"><?=$old_essen2?></textarea>
             <br>
-            3. <textarea style="resize: none;" name="essential3_update" rows="1" cols="100"><?=$old_des3?></textarea>
+            3. <textarea style="resize: none;" name="essential3_update" rows="1" cols="100"><?=$old_essen3?></textarea>
             </p>
 
             <p  class="createexpform4">
-            <label for="q11">Essential</label>
+            <label for="q11">Desirable</label>
             <br>
-            1. <textarea style="resize: none;" id="q11" name="desirable1_update" rows="1" cols="100"><?=$old_essen1?></textarea>
+            1. <textarea style="resize: none;" id="q11" name="desirable1_update" rows="1" cols="100"><?=$old_des1?></textarea>
             <br>
-            2. <textarea style="resize: none;" name="desirable2_update" rows="1" cols="100"><?=$old_essen2?></textarea>
+            2. <textarea style="resize: none;" name="desirable2_update" rows="1" cols="100"><?=$old_des2?></textarea>
             <br>
-            3. <textarea style="resize: none;" name="desirable3_update" rows="1" cols="100"><?=$old_essen3?></textarea>
+            3. <textarea style="resize: none;" name="desirable3_update" rows="1" cols="100"><?=$old_des3?></textarea>
             </p>
 
             <p  class="createexpform4" id="bottomfour">
