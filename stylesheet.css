@@ -187,6 +187,16 @@ p.createexpform3{
   line-height: 20px;
 }
 
+p.createexpform4{
+  color: #1c4c74;
+  height: 110px;
+  line-height: 20px;
+}
+
+p#bottomfour {
+  border-bottom: 1px solid #5cace4;
+}
+
 #note {
   font-size: 12px;
   color: black;
@@ -250,4 +260,11 @@ table.stattable{
 #projectform {
   height:550px;
   overflow-y:auto;
+}
+
+p.requiretitle {
+  color: black;
+  height: 60px;
+  line-height: 60px;
+  font-size: 20px;
 }

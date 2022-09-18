@@ -57,17 +57,17 @@
                 <tr>
                 </tr>
             <?php
-            $rec_sql = "SELECT name_sys, system_id, progress FROM `projects`";
+            $rec_sql = "SELECT name_sys, system_id, progress, dateval FROM `projects`";
             $res=mysqli_query($conn1, $rec_sql);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
+                echo "\t<td>".$row["dateval"]."</td>\n";
                 echo "\t<td>".$row["name_sys"]."</td>\n";
                 echo "\t<td>".$row["system_id"]."</td>\n";
                 echo "\t<td>".$row["progress"]."</td>\n";
                 echo "</tr>\n";
             }
 
-            mysqli_close($conn1);
             ?>
             </table>
             </div>
@@ -75,8 +75,24 @@
             <div class="new_expense">
                 <h4>Requirements</h4>
             </div>
-
             <div class="sidebaritems">
+            <table cellpadding=3 width="580" class="sidebartable">
+                <tr>
+                </tr>
+            <?php
+            $rec_sql2 = "SELECT Namedesc, sys_id, dateval FROM `requirements`";
+            $res=mysqli_query($conn1, $rec_sql2);
+            while ($row=mysqli_fetch_array($res)) {
+                echo "<tr>\n";
+                echo "\t<td>".$row["dateval"]."</td>\n";
+                echo "\t<td>".$row["Namedesc"]."</td>\n";
+                echo "\t<td>".$row["sys_id"]."</td>\n";
+                echo "</tr>\n";
+            }
+
+            mysqli_close($conn1);
+            ?>
+            </table>
             </div>
 
         </div>
@@ -145,7 +161,16 @@
             <label for="q7">Progress State</label>
             <select id="q7" name="progress_state">
                 <option value="blank">----</option>
-                <option value="System Requirements Review">System Requirements Review</option>
+                <option value="SRR">System Requirements Review</option>
+                <option value="PDR">Preliminary Design Review</option>
+                <option value="CDR">Critical Design Review</option>
+                <option value="B/BT">Benchtop/Breadboard Test</option>
+                <option value="MRR">Manufacture Readiness Review</option>
+                <option value="TRR">Test Readiness Review</option>
+                <option value="SAR">System Acceptance Review</option>
+                <option value="MRC">Mission Readiness Check</option>
+                <option value="PMAR">Post-mission Assessment Review</option>
+                <option value="Complete">Documentation Complete</option>
             </select>
             <br>
             <span id="note"><em>Please only select an option if the exit criteria have been met.</em></spam>
@@ -175,11 +200,32 @@
             </select>
             </p>
 
+            <p class="requiretitle">
+            System Overview
+            </p>
+
+            <p  class="createexpform4">
+            <label for="q12">Current Solution</label>
+            <br>
+            <textarea style="resize: none;" id="q12" name="current_sol" rows="4" cols="100"></textarea>
+            </p>
+
+            <p  class="createexpform4">
+            <label for="q13">Deficiencies in Current Solution</label>
+            <br>
+            <textarea style="resize: none;" id="q13" name="defi_sol" rows="4" cols="100"></textarea>
+            </p>
+
+            <p  class="createexpform4">
+            <label for="q14">Additional Critical-Path Work</label>
+            <br>
+            <textarea style="resize: none;" id="q14" name="crit_path" rows="4" cols="100"></textarea>
+            </p>
+
             <p  class="createexpform3">
             <label for="q11">Comments</label>
             <br>
-            <textarea style="resize: none;" id="q11" name="extradetail" rows="5" cols="90">
-            </textarea>
+            <textarea style="resize: none;" id="q11" name="extradetail" rows="4" cols="100"></textarea>
             </p>
 
             <p class="createexpform">
