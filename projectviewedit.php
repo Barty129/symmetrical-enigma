@@ -66,7 +66,6 @@
 <body>
     <nav class="topnav">
         <ul class="navbar">
-            <li><a  href="./landing.php">Expenses</a></li>
             <li><a class="active" href="./projects.php">Project Tracker</a></li>
           </ul>
     </nav>
