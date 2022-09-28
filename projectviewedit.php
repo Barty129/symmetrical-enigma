@@ -1,22 +1,13 @@
 <?php 
     $date = date('d-m-Y');
-    $servername = "localhost";
-    $database = "cusf_test";
-    $username = "root";
-    // Create connection
-    $conn1 = mysqli_connect($servername, $username, "", $database);
-    // Check connection
-    if (!$conn1) {
-      die("Connection failed: " . mysqli_connect_error());
-    }
- 
-    $connection = "Connected successfully";
+    require('db.php');
+    include("auth_session.php");
 
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
         $tracker = $_POST['trackid'];
         $pro_sql = "SELECT ID, dateval, name_sys, system_id, personnel_1, personnel_2, personnel_3, parent_proj, TPM_1, TPM_2, TPM_3,
         progress,  parent_require, child_require, related_require, comments, current_sol, current_defi, critical_path FROM `projects`";
-        $res=mysqli_query($conn1, $pro_sql);
+        $res=mysqli_query($conn, $pro_sql);
         while ($row=mysqli_fetch_array($res)) {
                 $old_date = $row["dateval"];
                 $old_name = $row["name_sys"];
@@ -38,12 +29,6 @@
                 $old_critpath = $row["critical_path"];
     }
 }    
-?>
-
-
-
-<?php 
-    $date = date('d-m-Y');
 ?>
 
 <!DOCTYPE html>
@@ -85,7 +70,7 @@
                 </tr>
             <?php
             $rec_sql = "SELECT ID, name_sys, system_id, progress, dateval, parent_require, child_require  FROM `projects`";
-            $res=mysqli_query($conn1, $rec_sql);
+            $res=mysqli_query($conn, $rec_sql);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
                 echo "\t<td>".$row["name_sys"]."</td>\n";
@@ -123,7 +108,7 @@
                 </tr>
             <?php
             $rec_sql2 = "SELECT ID, Namedesc, sys_id, dateval FROM `requirements`";
-            $res=mysqli_query($conn1, $rec_sql2);
+            $res=mysqli_query($conn, $rec_sql2);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
                 echo "\t<td>".$row["dateval"]."</td>\n";
@@ -146,7 +131,7 @@
     </div>
 
     <div class="welcome_text">
-        <h3>CUSF Expenses and Project Management</h3>
+        <h3>CUSF Project Management</h3>
         <p><em>Add a New Project</em></p>
     </div>
 
@@ -185,7 +170,7 @@
                 <option value="<?=$old_parentproj?>"><?=$old_parentproj?></option>
                 <?php
                 $rec_sql = "SELECT name_sys FROM `projects`";
-                $res=mysqli_query($conn1, $rec_sql);
+                $res=mysqli_query($conn, $rec_sql);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["name_sys"] . ">" . $row["name_sys"] . "</option>";
                 }
@@ -235,7 +220,7 @@
                 <option value="<?=$old_parentreq?>"><?=$old_parentreq?></option>
                 <?php
                 $rec_sql2 = "SELECT Namedesc FROM `requirements`";
-                $res=mysqli_query($conn1, $rec_sql2);
+                $res=mysqli_query($conn, $rec_sql2);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["Namedesc"] . ">" . $row["Namedesc"] . "</option>";
 
@@ -251,7 +236,7 @@
                 <option value="<?=$old_childreq?>"><?=$old_childreq?></option>
                 <?php
                 $rec_sql2 = "SELECT Namedesc FROM `requirements`";
-                $res=mysqli_query($conn1, $rec_sql2);
+                $res=mysqli_query($conn, $rec_sql2);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["Namedesc"] . ">" . $row["Namedesc"] . "</option>";
 
@@ -267,13 +252,13 @@
                 <option value="<?=$old_relatedreq?>"><?=$old_relatedreq?></option>
                 <?php
                 $rec_sql2 = "SELECT Namedesc FROM `requirements`";
-                $res=mysqli_query($conn1, $rec_sql2);
+                $res=mysqli_query($conn, $rec_sql2);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["Namedesc"] . ">" . $row["Namedesc"] . "</option>";
 
                 }
 
-                mysqli_close($conn1);
+                mysqli_close($conn);
                 ?>
             </select>
             </p>

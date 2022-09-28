@@ -1,16 +1,8 @@
 <?php 
     $date = date('d-m-Y');
-    $servername = "localhost";
-    $database = "cusf_test";
-    $username = "root";
-    // Create connection
-    $conn1 = mysqli_connect($servername, $username, "", $database);
-    // Check connection
-    if (!$conn1) {
-      die("Connection failed: " . mysqli_connect_error());
-    }
- 
-    $connection = "Connected successfully";
+
+    require('db.php');
+    include("auth_session.php");
 
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
         $date_proj = $_POST['date'];
@@ -41,12 +33,12 @@
                  progress, parent_require, child_require, related_require, comments, current_sol, current_defi, critical_path) 
                 VALUES ('$date_proj', '$name', '$ids', '$person_1', '$person_2', '$person_3', '$parent_proj', '$tpm_1', '$tpm_2', '$tpm_3',
                  '$progress', '$p_require', '$c_require', '$r_require','$comment','$current_sol', '$current_defi', '$crit_path')";
-        if (mysqli_query($conn1, $sql_r)) {
+        if (mysqli_query($conn, $sql_r)) {
             $result = "New record created successfully";
             header( "refresh:1;url=./projects.php" );
         }
         else {
-            $result =  "Error: " . $sql . "<br>" . mysqli_error($conn2);
+            $result =  "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
     
     }
@@ -78,7 +70,6 @@
 <body>
     <nav class="topnav">
         <ul class="navbar">
-            <li><a  href="./landing.php">Expenses</a></li>
             <li><a class="active" href="./projects.php">Project Tracker</a></li>
           </ul>
     </nav>
@@ -98,7 +89,7 @@
                 </tr>
             <?php
             $rec_sql = "SELECT ID, name_sys, system_id, progress, dateval, parent_require, child_require  FROM `projects`";
-            $res=mysqli_query($conn1, $rec_sql);
+            $res=mysqli_query($conn, $rec_sql);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
                 echo "\t<td>".$row["name_sys"]."</td>\n";
@@ -136,7 +127,7 @@
                 </tr>
             <?php
             $rec_sql2 = "SELECT ID, Namedesc, sys_id, dateval FROM `requirements`";
-            $res=mysqli_query($conn1, $rec_sql2);
+            $res=mysqli_query($conn, $rec_sql2);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
                 echo "\t<td>".$row["dateval"]."</td>\n";
@@ -187,10 +178,40 @@
 
             <p class="createexpform">
             <span><label for="q4">Responsible Personnel:</label></span>
-            <input type="text" id="q4" name="Personnel_1">,
-            <input type="text" name="Personnel_2">,
-            <input type="text" name="Personnel_3">
+            <select id="q4" name="Personnel_1">
+                <option value="blank">----</option>
+                <?php
+                $rec_sql2 = "SELECT Name_list FROM `users`";
+                $res=mysqli_query($conn, $rec_sql2);
+                while ($row=mysqli_fetch_array($res)) {
+                    echo "<option value=" . $row["Name_list"] . ">" . $row["Name_list"] . "</option>";
+                }
+                ?>
+            </select>
+
+            <select id="q4" name="Personnel_2">
+                <option value="blank">----</option>
+                <?php
+                $rec_sql2 = "SELECT Name_list FROM `users`";
+                $res=mysqli_query($conn, $rec_sql2);
+                while ($row=mysqli_fetch_array($res)) {
+                    echo "<option value=" . $row["Name_list"] . ">" . $row["Name_list"] . "</option>";
+                }
+                ?>
+            </select>
+            
+            <select id="q4" name="Personnel_3">
+                <option value="blank">----</option>
+                <?php
+                $rec_sql2 = "SELECT Name_list FROM `users`";
+                $res=mysqli_query($conn, $rec_sql2);
+                while ($row=mysqli_fetch_array($res)) {
+                    echo "<option value=" . $row["Name_list"] . ">" . $row["Name_list"] . "</option>";
+                }
+                ?>
+            </select>
             </p>
+
 
             <p  class="createexpform">
             <label for="q5">Parent Project</label>
@@ -198,7 +219,7 @@
                 <option value="blank">----</option>
                 <?php
                 $rec_sql = "SELECT name_sys FROM `projects`";
-                $res=mysqli_query($conn1, $rec_sql);
+                $res=mysqli_query($conn, $rec_sql);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["name_sys"] . ">" . $row["name_sys"] . "</option>";
                 }
@@ -248,7 +269,7 @@
                 <option value="blank">----</option>
                 <?php
                 $rec_sql2 = "SELECT Namedesc FROM `requirements`";
-                $res=mysqli_query($conn1, $rec_sql2);
+                $res=mysqli_query($conn, $rec_sql2);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["Namedesc"] . ">" . $row["Namedesc"] . "</option>";
 
@@ -264,7 +285,7 @@
                 <option value="blank">----</option>
                 <?php
                 $rec_sql2 = "SELECT Namedesc FROM `requirements`";
-                $res=mysqli_query($conn1, $rec_sql2);
+                $res=mysqli_query($conn, $rec_sql2);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["Namedesc"] . ">" . $row["Namedesc"] . "</option>";
 
@@ -280,13 +301,13 @@
                 <option value="blank">----</option>
                 <?php
                 $rec_sql2 = "SELECT Namedesc FROM `requirements`";
-                $res=mysqli_query($conn1, $rec_sql2);
+                $res=mysqli_query($conn, $rec_sql2);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["Namedesc"] . ">" . $row["Namedesc"] . "</option>";
 
                 }
 
-                mysqli_close($conn1);
+                mysqli_close($conn);
                 ?>
             </select>
             </p>

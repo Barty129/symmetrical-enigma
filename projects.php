@@ -1,14 +1,7 @@
 <?php
-$servername = "localhost";
-$database = "cusf_test";
-$username = "root";
-// Create connection
-$conn2 = mysqli_connect($servername, $username, "", $database);
-// Check connection
-if (!$conn2) {
-      die("Connection failed: " . mysqli_connect_error());
-}
- 
+require('db.php');
+include("auth_session.php");
+
 $connection = "Connected successfully";
 
 
@@ -44,11 +37,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     parent_require='$p_require_upds', child_require='$c_require_upds', related_require='$r_require_upds', comments='$comment_upds', current_sol='$current_sol_upds',
     current_defi='$current_defi_upds', critical_path='$crit_path_upds' " . "WHERE ID='" . $update_select . "'";
 
-    if (mysqli_query($conn2, $sql_update)) {
+    if (mysqli_query($conn, $sql_update)) {
         $result = "Record Updated";
     }
     else {
-        $result =  "Error: " . $sql . "<br>" . mysqli_error($conn2);
+        $result =  "Error: " . $sql . "<br>" . mysqli_error($conn);
     }
 }
 
@@ -92,7 +85,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 </tr>
             <?php
             $rec_sql = "SELECT ID, name_sys, system_id, progress, dateval, parent_require, child_require FROM `projects`";
-            $res=mysqli_query($conn2, $rec_sql);
+            $res=mysqli_query($conn, $rec_sql);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
                 echo "\t<td>".$row["name_sys"]."</td>\n";
@@ -113,10 +106,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 echo "\t<td><em>".$row["child_require"]."</em></td>\n";
                 echo "</tr>\n";
             }
-
             ?>
+
             </table>
             </div>
+            
             <br>
             <div class="new_expense">
                 <h4>Requirements</h4>
@@ -128,7 +122,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 </tr>
             <?php
             $rec_sql2 = "SELECT ID, Namedesc, sys_id, dateval FROM `requirements`";
-            $res=mysqli_query($conn2, $rec_sql2);
+            $res=mysqli_query($conn, $rec_sql2);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
                 echo "\t<td>".$row["Namedesc"]."</td>\n";
@@ -152,9 +146,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     </div>
 
     <div class="welcome_text">
-        <h3>CUSF Expenses and Project Management</h3>
-        <p><em>Welcome to CUSF Project Management</em></p>
+        <h3>CUSF Project Management</h3>
+        <p><em>Welcome to CUSF Project Management, <?=$_SESSION['username']?></em></p>
     </div>
+
+    <div class="cancel">
+        <a href="./logout.php"><h4 id="cancel">Logout</h4></a>
+    </div>
+
+    <div class="cancel">
+        <a href="./users.php"><h4 id="users">Users</h4></a>
+    </div>
+
 
 
     <div class="addexpend"> 
@@ -169,6 +172,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         <h2 id="stats">Add Requirement</h2>
     </div>
 
+    <div class="allreimb">
+    <a href="./allreimb.php"><h2 id="allreimb">All Projects</h2></a>
+    </div>
 </body>
 
 

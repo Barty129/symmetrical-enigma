@@ -6,15 +6,18 @@ $username = "root";
 $conn = mysqli_connect($servername, $username, "", $database);
 // Check connection
 if (!$conn) {
-      die("Connection failed: " . mysqli_connect_error());
+      die("connection failed: " . mysqli_connect_error());
 }
  
-$connection = "Connected successfully";
+$connection = "connected successfully";
+include("auth_session.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $date_proj_rupd = $_POST['date_r_update'];
     $name_rupd = $_POST['Name_r_update'];
     $ids_rupd = $_POST['_ID_r_update'];
+    $relap_rupd = $_POST['rela_project_update'];
+    $user_rupd = $_POST['Personnel_1_update'];
 
     $essential1_rupd = $_POST['essential1_update'];
     $essential2_rupd = $_POST['essential2_update'];
@@ -58,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
     $update_select = $_POST['save_ID'];
 
-    $sql_update = "UPDATE `requirements` SET dateval='$date_proj_rupd', Namedesc='$name_rupd', sys_id='$ids_rupd', desirable_1='$desirable1_rupd', desirable_2='$desirable2_rupd', desirable_3='$desirable3_rupd',
+    $sql_update = "UPDATE `requirements` SET dateval='$date_proj_rupd', Namedesc='$name_rupd', sys_id='$ids_rupd', Related_project='$relap_rupd', personName='$user_rupd', desirable_1='$desirable1_rupd', desirable_2='$desirable2_rupd', desirable_3='$desirable3_rupd',
         essential_1='$essential1_rupd', essential_2='$essential2_rupd', essential_3='$essential3_rupd', preferable_1='$preferable1_rupd', preferable_2='$preferable2_rupd', preferable_3='$preferable3_rupd', 
         sysint_1='$sysi1_rupd', sysint_2='$sysi2_rupd', sysint_3='$sysi3_rupd', perfvals_1='$perfval1_rupd', perfvals_2='$perfval2_rupd', perfvals_3='$perfval3_rupd', 
         intproc_1='$intpro1_rupd', intproc_2='$intpro2_rupd', intproc_3='$intpro3_rupd', failmodes_1='$failerror1_rupd', failmodes_2='$failerror2_rupd', failmodes_3='$failerror3_rupd',

@@ -4,25 +4,28 @@ $servername = "localhost";
 $database = "cusf_test";
 $username = "root";
 // Create connection
-$conn1 = mysqli_connect($servername, $username, "", $database);
+$conn = mysqli_connect($servername, $username, "", $database);
 // Check connection
-if (!$conn1) {
+if (!$conn) {
       die("Connection failed: " . mysqli_connect_error());
 }
  
 $connection = "Connected successfully";
+include("auth_session.php");
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $tracker = $_POST['trackid'];
-    $rev_sql = "SELECT dateval, Namedesc, sys_id, desirable_1, desirable_2, desirable_3, essential_1, essential_2, essential_3, preferable_1,
+    $rev_sql = "SELECT dateval, Namedesc, sys_id, Related_project, personName, desirable_1, desirable_2, desirable_3, essential_1, essential_2, essential_3, preferable_1,
     preferable_2, preferable_3, sysint_1, sysint_2, sysint_3, perfvals_1, perfvals_2, perfvals_3, intproc_1, intproc_2, intproc_3, failmodes_1, 
     failmodes_2, failmodes_3, designdocu_1, designdocu_2, designdocu_3, funcdocu_1, funcdocu_2, funcdocu_3, opsproc_1, opsproc_2, opsproc_3 FROM `requirements`" ."WHERE ID='" . $tracker . "'";
-    $res=mysqli_query($conn1, $rev_sql);
+    $res=mysqli_query($conn, $rev_sql);
         while ($row=mysqli_fetch_array($res)) {
             $old_date = $row["dateval"];
             $old_name = $row["Namedesc"];
             $old_id = $row["sys_id"];
+            $old_project = $row["Related_project"];
+            $old_user = $row["personName"];
 
             $old_des1 = $row["desirable_1"];
             $old_des2 = $row["desirable_2"];
@@ -88,7 +91,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 <body>
     <nav class="topnav">
         <ul class="navbar">
-            <li><a  href="./landing.php">Expenses</a></li>
             <li><a class="active" href="./projects.php">Project Tracker</a></li>
           </ul>
     </nav>
@@ -107,7 +109,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 </tr>
             <?php
             $rec_sql = "SELECT ID, name_sys, system_id, progress, dateval, parent_require, child_require  FROM `projects`";
-            $res=mysqli_query($conn1, $rec_sql);
+            $res=mysqli_query($conn, $rec_sql);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
                 echo "\t<td>".$row["name_sys"]."</td>\n";
@@ -143,7 +145,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 </tr>
             <?php
             $rec_sql2 = "SELECT ID, Namedesc, sys_id, dateval FROM `requirements`";
-            $res=mysqli_query($conn1, $rec_sql2);
+            $res=mysqli_query($conn, $rec_sql2);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
                 echo "\t<td>".$row["dateval"]."</td>\n";
@@ -157,8 +159,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 echo "</form>";
                 echo "</tr>\n";
             }
-
-            mysqli_close($conn1);
             ?>
             </table>
             </div>
@@ -194,14 +194,43 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             <input type="text" id="q3" name="_ID_r_update" value="<?=$old_id?>">
             </p>
 
+            <p  class="createexpform">
+            <label for="q15">Related Project</label>
+            <select id="q15" name="rela_project_update">
+                <option value="<?=$old_project?>"><?=$old_project?></option>
+                <?php
+                $rec_sql2 = "SELECT Namedesc FROM `requirements`";
+                $res=mysqli_query($conn, $rec_sql2);
+                while ($row=mysqli_fetch_array($res)) {
+                    echo "<option value=" . $row["Namedesc"] . ">" . $row["Namedesc"] . "</option>";
+
+                }
+            ?>
+            </select>
+            </p>
+
+            <p class="createexpform">
+            <span><label for="q16">Responsible Personnel:</label></span>
+            <select id="q16" name="Personnel_1_update">
+                <option value="<?=$old_user?>"><?=$old_user?></option>
+                <?php
+                $rec_sql2 = "SELECT Name_list FROM `users`";
+                $res=mysqli_query($conn, $rec_sql2);
+                while ($row=mysqli_fetch_array($res)) {
+                    echo "<option value=" . $row["Name_list"] . ">" . $row["Name_list"] . "</option>";
+                }
+                ?>
+            </select>
+            </p>
+
             <p class="requiretitle">
             Functional Requirements
             </p>
 
             <p  class="createexpform4">
-            <label for="q11">Essential</label>
+            <label for="q4">Essential</label>
             <br>
-            1. <textarea style="resize: none;" id="q11" name="essential1_update" rows="1" cols="100"><?=$old_essen1?></textarea>
+            1. <textarea style="resize: none;" id="q4" name="essential1_update" rows="1" cols="100"><?=$old_essen1?></textarea>
             <br>
             2. <textarea style="resize: none;" name="essential2_update" rows="1" cols="100"><?=$old_essen2?></textarea>
             <br>
@@ -209,9 +238,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             </p>
 
             <p  class="createexpform4">
-            <label for="q11">Desirable</label>
+            <label for="q5">Desirable</label>
             <br>
-            1. <textarea style="resize: none;" id="q11" name="desirable1_update" rows="1" cols="100"><?=$old_des1?></textarea>
+            1. <textarea style="resize: none;" id="q5" name="desirable1_update" rows="1" cols="100"><?=$old_des1?></textarea>
             <br>
             2. <textarea style="resize: none;" name="desirable2_update" rows="1" cols="100"><?=$old_des2?></textarea>
             <br>
@@ -219,9 +248,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             </p>
 
             <p  class="createexpform4" id="bottomfour">
-            <label for="q11">Preferable</label>
+            <label for="q6">Preferable</label>
             <br>
-            1. <textarea style="resize: none;" id="q11" name="preferable1_update" rows="1" cols="100"><?=$old_pref1?></textarea>
+            1. <textarea style="resize: none;" id="q6" name="preferable1_update" rows="1" cols="100"><?=$old_pref1?></textarea>
             <br>
             2. <textarea style="resize: none;" name="preferable2_update" rows="1" cols="100"><?=$old_pref2?></textarea>
             <br>
@@ -233,9 +262,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             </p>
 
             <p  class="createexpform4">
-            <label for="q11">System Interfaces</label>
+            <label for="q7">System Interfaces</label>
             <br>
-            1. <textarea style="resize: none;" id="q11" name="sysi1_update" rows="1" cols="100"><?=$old_sysint1?></textarea>
+            1. <textarea style="resize: none;" id="q7" name="sysi1_update" rows="1" cols="100"><?=$old_sysint1?></textarea>
             <br>
             2. <textarea style="resize: none;" name="sysi2_update" rows="1" cols="100"><?=$old_sysint2?></textarea>
             <br>
@@ -243,9 +272,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             </p>
 
             <p  class="createexpform4">
-            <label for="q11">Performance Validations</label>
+            <label for="q8">Performance Validations</label>
             <br>
-            1. <textarea style="resize: none;" id="q11" name="perfval1_update" rows="1" cols="100"><?=$old_perval1?></textarea>
+            1. <textarea style="resize: none;" id="q8" name="perfval1_update" rows="1" cols="100"><?=$old_perval1?></textarea>
             <br>
             2. <textarea style="resize: none;" name="perfval2_update" rows="1" cols="100"><?=$old_perval2?></textarea>
             <br>
@@ -253,9 +282,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             </p>
 
             <p  class="createexpform4">
-            <label for="q11">Integration Processes</label>
+            <label for="q9">Integration Processes</label>
             <br>
-            1. <textarea style="resize: none;" id="q11" name="intpro1_update" rows="1" cols="100"><?=$old_intpro1?></textarea>
+            1. <textarea style="resize: none;" id="q9" name="intpro1_update" rows="1" cols="100"><?=$old_intpro1?></textarea>
             <br>
             2. <textarea style="resize: none;" name="intpro2_update" rows="1" cols="100"><?=$old_intpro2?></textarea>
             <br>
@@ -263,9 +292,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             </p>
 
             <p  class="createexpform4" id="bottomfour">
-            <label for="q11">Failure Modes and Error Handling</label>
+            <label for="q10">Failure Modes and Error Handling</label>
             <br>
-            1. <textarea style="resize: none;" id="q11" name="failerrorhandle1_update" rows="1" cols="100"><?=$old_failm1?></textarea>
+            1. <textarea style="resize: none;" id="q10" name="failerrorhandle1_update" rows="1" cols="100"><?=$old_failm1?></textarea>
             <br>
             2. <textarea style="resize: none;" name="failerrorhandle2_update" rows="1" cols="100"><?=$old_failm2?></textarea>
             <br>
@@ -277,9 +306,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             </p>
 
             <p  class="createexpform4">
-            <label for="q11">Design Documentation</label>
+            <label for="q12">Design Documentation</label>
             <br>
-            1. <textarea style="resize: none;" id="q11" name="designdocu1_update" rows="1" cols="100"><?=$old_desdoc1?></textarea>
+            1. <textarea style="resize: none;" id="q12" name="designdocu1_update" rows="1" cols="100"><?=$old_desdoc1?></textarea>
             <br>
             2. <textarea style="resize: none;" name="designdocu2_update" rows="1" cols="100"><?=$old_desdoc2?></textarea>
             <br>
@@ -287,9 +316,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             </p>
 
             <p  class="createexpform4">
-            <label for="q11">Functionality Documentation</label>
+            <label for="q13">Functionality Documentation</label>
             <br>
-            1. <textarea style="resize: none;" id="q11" name="funcdocu1_update" rows="1" cols="100"><?=$old_fundoc1?></textarea>
+            1. <textarea style="resize: none;" id="q13" name="funcdocu1_update" rows="1" cols="100"><?=$old_fundoc1?></textarea>
             <br>
             2. <textarea style="resize: none;" name="funcdocu2_update" rows="1" cols="100"><?=$old_fundoc2?></textarea>
             <br>
@@ -297,9 +326,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             </p>
 
             <p  class="createexpform4" id="bottomfour">
-            <label for="q11">Operations Procedures</label>
+            <label for="q14">Operations Procedures</label>
             <br>
-            1. <textarea style="resize: none;" id="q11" name="opspro1_update" rows="1" cols="100"><?=$old_opspro1?></textarea>
+            1. <textarea style="resize: none;" id="q14" name="opspro1_update" rows="1" cols="100"><?=$old_opspro1?></textarea>
             <br>
             2. <textarea style="resize: none;" name="opspro2_update" rows="1" cols="100"><?=$old_opspro2?></textarea>
             <br>
