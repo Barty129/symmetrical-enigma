@@ -11,6 +11,7 @@
     }
  
     $connection = "Connected successfully";
+    include("auth_session.php");
 
 
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
