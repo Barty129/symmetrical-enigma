@@ -34,7 +34,7 @@
     <form class="loginform" action="" method="post">
         <h1 class="login-title">Registration</h1>
         <input type="text" class="login-input" name="username" placeholder="Username" required />
-        <input type="text" class="login-input" name="password" placeholder="New Password">
+        <input type="password" class="login-input" name="password" placeholder="New Password">
         <input type="submit" name="submit" value="Register" class="login-button">
         <p class="loginlink"><a href="login.php">Click to Login</a></p>
     </form>

@@ -28,11 +28,17 @@
         $current_sol = $_POST['current_sol'];
         $current_defi = $_POST['defi_sol'];
         $crit_path = $_POST['crit_path'];
+
+        $last_editor = $_POST['last_user'];
+        $last_edited = $_POST['last_time_change'];
+        $change_comments = $_POST['change_comments'];
     
         $sql_r = "INSERT INTO projects (dateval, name_sys , system_id, personnel_1, personnel_2, personnel_3, parent_proj, TPM_1, TPM_2, TPM_3,
-                 progress, parent_require, child_require, related_require, comments, current_sol, current_defi, critical_path) 
+                 progress, parent_require, child_require, related_require, comments, current_sol, current_defi, critical_path, last_editor,
+                 last_edited, change_comments) 
                 VALUES ('$date_proj', '$name', '$ids', '$person_1', '$person_2', '$person_3', '$parent_proj', '$tpm_1', '$tpm_2', '$tpm_3',
-                 '$progress', '$p_require', '$c_require', '$r_require','$comment','$current_sol', '$current_defi', '$crit_path')";
+                 '$progress', '$p_require', '$c_require', '$r_require','$comment','$current_sol', '$current_defi', '$crit_path', '$last_editor', 
+                 '$last_edited', '$change_comments')";
         if (mysqli_query($conn, $sql_r)) {
             $result = "New record created successfully";
             header( "refresh:1;url=./projects.php" );
@@ -335,9 +341,25 @@
             </p>
 
             <p  class="createexpform3">
-            <label for="q11">Comments</label>
+            <label for="q15">Comments</label>
             <br>
-            <textarea style="resize: none;" id="q11" name="extradetail" rows="4" cols="100"></textarea>
+            <textarea style="resize: none;" id="q15" name="extradetail" rows="4" cols="100"></textarea>
+            </p>
+
+            <p class="createexpform">
+            <span><label style="color: red;" for="q17">Last Editor</label></span>
+            <input type="text" id="q17" name="last_user" value="<?=$_SESSION['Name']?>" readonly>
+            </p>
+
+            <p class="createexpform">
+            <span><label style="color: red;" for="q18">Last Edited</label></span>
+            <input type="text" id="q18" name="last_time_change" value="<?=$date?>" readonly>
+            </p>
+
+            <p  class="createexpform4">
+            <label style="color: red;" for="q19">Change Comments</label>
+            <br>
+            <textarea style="resize: none;" id="q19" name="change_comments" rows="4" cols="100"></textarea>
             </p>
 
             <p class="createexpform">

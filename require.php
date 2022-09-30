@@ -53,14 +53,19 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $opspro2_r = $_POST['opspro2'];
     $opspro3_r = $_POST['opspro3'];
 
+    $last_editor = $_POST['last_user'];
+    $last_edited = $_POST['last_time_change'];
+    $change_comments = $_POST['change_comments'];
+
     //Now look who is good at SQL, TC? - BW
     $sql_r = "INSERT INTO requirements (dateval, Namedesc, sys_id, Related_project, personName, desirable_1, desirable_2, desirable_3, essential_1, essential_2, essential_3, preferable_1,
     preferable_2, preferable_3, sysint_1, sysint_2, sysint_3, perfvals_1, perfvals_2, perfvals_3, intproc_1, intproc_2, intproc_3, failmodes_1, 
-    failmodes_2, failmodes_3, designdocu_1, designdocu_2, designdocu_3, funcdocu_1, funcdocu_2, funcdocu_3, opsproc_1, opsproc_2, opsproc_3) 
+    failmodes_2, failmodes_3, designdocu_1, designdocu_2, designdocu_3, funcdocu_1, funcdocu_2, funcdocu_3, opsproc_1, opsproc_2, opsproc_3, last_editor,
+                 last_edited, change_comments) 
    VALUES ('$date_proj_r', '$name_r', '$ids_r', '$pr_project', '$person_1', '$desirable1_r', '$desirable2_r', '$desirable3_r', '$essential1_r', '$essential2_r', '$essential3_r', '$preferable1_r', 
       '$preferable2_r', '$preferable3_r', '$sysi1_r', '$sysi2_r','$sysi3_r','$perfval1_r', '$perfval2_r', '$perfval3_r', '$intpro1_r', '$intpro2_r', '$intpro3_r',
      '$failerror1_r', '$failerror2_r', '$failerror3_r', '$designdocu1_r', '$designdocu2_r', '$designdocu3_r', '$funcdocu1_r', '$funcdocu2_r', '$funcdocu3_r', 
-     '$opspro1_r', '$opspro2_r', '$opspro3_r')";
+     '$opspro1_r', '$opspro2_r', '$opspro3_r', '$last_editor', '$last_edited', '$change_comments')";
     if (mysqli_query($conn, $sql_r)) {
         $result = "New record created successfully";
         header( "refresh:1;url=./projects.php" );
@@ -336,6 +341,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             2. <textarea style="resize: none;" name="opspro2" rows="1" cols="100"></textarea>
             <br>
             3. <textarea style="resize: none;" name="opspro3" rows="1" cols="100"></textarea>
+            </p>
+
+            <p class="createexpform">
+            <span><label style="color: red;" for="q17">Last Editor</label></span>
+            <input type="text" id="q17" name="last_user" value="<?=$_SESSION['Name']?>" readonly>
+            </p>
+
+            <p class="createexpform">
+            <span><label style="color: red;" for="q18">Last Edited</label></span>
+            <input type="text" id="q18" name="last_time_change" value="<?=$date?>" readonly>
+            </p>
+
+            <p  class="createexpform4">
+            <label style="color: red;" for="q19">Change Comments</label>
+            <br>
+            <textarea style="resize: none;" id="q19" name="change_comments" rows="4" cols="100"></textarea>
             </p>
 
             <p class="createexpform">

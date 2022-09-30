@@ -6,7 +6,8 @@
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
         $tracker = $_POST['trackid'];
         $pro_sql = "SELECT ID, dateval, name_sys, system_id, personnel_1, personnel_2, personnel_3, parent_proj, TPM_1, TPM_2, TPM_3,
-        progress,  parent_require, child_require, related_require, comments, current_sol, current_defi, critical_path FROM `projects`";
+        progress,  parent_require, child_require, related_require, comments, current_sol, current_defi, critical_path, last_editor,
+        last_edited, change_comments FROM `projects`" . "WHERE ID='" . $tracker . "'";
         $res=mysqli_query($conn, $pro_sql);
         while ($row=mysqli_fetch_array($res)) {
                 $old_date = $row["dateval"];
@@ -27,6 +28,9 @@
                 $old_currentsol = $row["current_sol"];
                 $old_currentdefi = $row["current_defi"];
                 $old_critpath = $row["critical_path"];
+                $previous_user = $row["last_editor"];
+                $previous_change = $row["last_edited"];
+                $previous_comments = $row["change_comments"];
     }
 }    
 ?>
@@ -133,6 +137,14 @@
     <div class="welcome_text">
         <h3>CUSF Project Management</h3>
         <p><em>Add a New Project</em></p>
+        <p style="color: red;">Last edited by <?=$previous_user?> on <?=$previous_change?>.
+        <div class="dropdown">
+        <span>Change Comments</span>
+            <div class="dropdown-content">
+                <p><?=$previous_comments?></p>
+            </div>
+        </div>
+    </p>
     </div>
 
     <div class="cancel">
@@ -289,6 +301,22 @@
             <label for="q11">Comments</label>
             <br>
             <textarea style="resize: none;" id="q11" name="extradetail_update" rows="4" cols="100"><?=$old_comments?></textarea>
+            </p>
+
+            <p class="createexpform">
+            <span><label style="color: red;" for="q17">Last Editor</label></span>
+            <input type="text" id="q17" name="last_user_upd" value="<?=$_SESSION['Name']?>" readonly>
+            </p>
+
+            <p class="createexpform">
+            <span><label style="color: red;" for="q18">Last Edited</label></span>
+            <input type="text" id="q18" name="last_time_upd" value="<?=$date?>" readonly>
+            </p>
+
+            <p  class="createexpform4">
+            <label style="color: red;" for="q19">Change Comments</label>
+            <br>
+            <textarea style="resize: none;" id="q19" name="change_comments_upd" rows="4" cols="100"></textarea>
             </p>
 
             <input type='hidden' name='save_ID' value='<?=$tracker?>'>

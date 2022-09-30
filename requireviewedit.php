@@ -18,7 +18,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $tracker = $_POST['trackid'];
     $rev_sql = "SELECT dateval, Namedesc, sys_id, Related_project, personName, desirable_1, desirable_2, desirable_3, essential_1, essential_2, essential_3, preferable_1,
     preferable_2, preferable_3, sysint_1, sysint_2, sysint_3, perfvals_1, perfvals_2, perfvals_3, intproc_1, intproc_2, intproc_3, failmodes_1, 
-    failmodes_2, failmodes_3, designdocu_1, designdocu_2, designdocu_3, funcdocu_1, funcdocu_2, funcdocu_3, opsproc_1, opsproc_2, opsproc_3 FROM `requirements`" ."WHERE ID='" . $tracker . "'";
+    failmodes_2, failmodes_3, designdocu_1, designdocu_2, designdocu_3, funcdocu_1, funcdocu_2, funcdocu_3, opsproc_1, opsproc_2, opsproc_3,
+    last_editor, last_edited, change_comments FROM `requirements`" ."WHERE ID='" . $tracker . "'";
     $res=mysqli_query($conn, $rev_sql);
         while ($row=mysqli_fetch_array($res)) {
             $old_date = $row["dateval"];
@@ -66,9 +67,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             $old_opspro1 = $row["opsproc_1"];
             $old_opspro2 = $row["opsproc_2"];
             $old_opspro3 = $row["opsproc_3"];
+
+            $previous_user = $row["last_editor"];
+            $previous_change = $row["last_edited"];
+            $previous_comments = $row["change_comments"];
         }
 }
-
 ?>
 
 <!DOCTYPE html>
@@ -168,8 +172,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     </div>
 
     <div class="welcome_text">
-        <h3>CUSF Expenses and Project Management</h3>
+        <h3>CUSF Project Management</h3>
         <p><em>Add a New Requirement</em></p>
+        <p style="color: red;">Last edited by <?=$previous_user?> on <?=$previous_change?>.
+        <div class="dropdown">
+        <span>Change Comments</span>
+            <div class="dropdown-content">
+                <p><?=$previous_comments?></p>
+            </div>
+        </div>
+    </p>
     </div>
 
     <div class="cancel">
@@ -333,6 +345,22 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             2. <textarea style="resize: none;" name="opspro2_update" rows="1" cols="100"><?=$old_opspro2?></textarea>
             <br>
             3. <textarea style="resize: none;" name="opspro3_update" rows="1" cols="100"><?=$old_opspro3?></textarea>
+            </p>
+
+            <p class="createexpform">
+            <span><label style="color: red;" for="q17">Last Editor</label></span>
+            <input type="text" id="q17" name="last_user_upd" value="<?=$_SESSION['Name']?>" readonly>
+            </p>
+
+            <p class="createexpform">
+            <span><label style="color: red;" for="q18">Last Edited</label></span>
+            <input type="text" id="q18" name="last_time_upd" value="<?=$date?>" readonly>
+            </p>
+
+            <p  class="createexpform4">
+            <label style="color: red;" for="q19">Change Comments</label>
+            <br>
+            <textarea style="resize: none;" id="q19" name="change_comments_upd" rows="4" cols="100"></textarea>
             </p>
 
             <input type='hidden' name='save_ID' value='<?=$tracker?>'>

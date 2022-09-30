@@ -13,6 +13,8 @@ $connection = "connected successfully";
 include("auth_session.php");
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
+    $update_select = $_POST['save_ID'];
+
     $date_proj_rupd = $_POST['date_r_update'];
     $name_rupd = $_POST['Name_r_update'];
     $ids_rupd = $_POST['_ID_r_update'];
@@ -59,19 +61,23 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $opspro2_rupd = $_POST['opspro2_update'];
     $opspro3_rupd = $_POST['opspro3_update'];
 
-    $update_select = $_POST['save_ID'];
+    $last_user_upds = $_POST['last_user_upd'];
+    $last_changed_upds = $_POST['last_time_upd'];
+    $change_comments_upds = $_POST['change_comments_upd'];
+
+
 
     $sql_update = "UPDATE `requirements` SET dateval='$date_proj_rupd', Namedesc='$name_rupd', sys_id='$ids_rupd', Related_project='$relap_rupd', personName='$user_rupd', desirable_1='$desirable1_rupd', desirable_2='$desirable2_rupd', desirable_3='$desirable3_rupd',
         essential_1='$essential1_rupd', essential_2='$essential2_rupd', essential_3='$essential3_rupd', preferable_1='$preferable1_rupd', preferable_2='$preferable2_rupd', preferable_3='$preferable3_rupd', 
         sysint_1='$sysi1_rupd', sysint_2='$sysi2_rupd', sysint_3='$sysi3_rupd', perfvals_1='$perfval1_rupd', perfvals_2='$perfval2_rupd', perfvals_3='$perfval3_rupd', 
         intproc_1='$intpro1_rupd', intproc_2='$intpro2_rupd', intproc_3='$intpro3_rupd', failmodes_1='$failerror1_rupd', failmodes_2='$failerror2_rupd', failmodes_3='$failerror3_rupd',
         designdocu_1='$designdocu1_rupd', designdocu_2='$designdocu2_rupd', designdocu_3='$designdocu3_rupd', funcdocu_1='$funcdocu1_rupd', funcdocu_2='$funcdocu2_rupd', 
-        funcdocu_3='$funcdocu3_rupd', opsproc_1='$opspro1_rupd', opsproc_2='$opspro2_rupd', opsproc_3='$opspro3_rupd'
+        funcdocu_3='$funcdocu3_rupd', opsproc_1='$opspro1_rupd', opsproc_2='$opspro2_rupd', opsproc_3='$opspro3_rupd', last_editor='$last_user_upds', last_edited='$last_changed_upds', change_comments='$change_comments_upds'
          " . " WHERE ID='" . $update_select . "'";
     //Now look who is good at SQL, TC? - BW
     if (mysqli_query($conn, $sql_update)) {
         $result = "Record Updated";
-        header( "refresh:1;url=./projects.php" );
+        header( "refresh:2;url=./projects.php" );
     }
     else {
         $result =  "Error: " . $sql . "<br>" . mysqli_error($conn);

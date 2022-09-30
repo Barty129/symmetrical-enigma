@@ -20,8 +20,11 @@
                      AND password='" . md5($password) . "'";
         $result = mysqli_query($conn, $query) or die(mysql_error());
         $rows = mysqli_num_rows($result);
+        $arrays=mysqli_fetch_array($result);
         if ($rows == 1) {
             $_SESSION['username'] = $username;
+            $_SESSION['Name'] = $arrays["Name_list"];
+            $_SESSION['Admin'] = $arrays["Admin_list"];
             // Redirect to user dashboard page
             header("Location: projects.php");
         } else {
@@ -35,7 +38,7 @@
     <form class="loginform" method="post" name="login">
         <h1 class="login-title">Login</h1>
         <input type="text" class="login-input" name="username" placeholder="Username" autofocus="true"/>
-        <input type="text" class="login-input" name="password" placeholder="Password"/>
+        <input type="password" class="login-input" name="password" placeholder="Password"/>
         <input type="submit" value="Login" name="submit" class="login-button"/>
         <p class="loginlink"><a href="newuser.php">New User</a></p>
   </form>

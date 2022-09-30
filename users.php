@@ -71,12 +71,14 @@
                 echo "\t<td>".$row["username"]."</td>\n";
                 echo "\t<td>".$row["Admin_list"]."</td>\n";
 
-                echo "\t<td>";
-                echo "<form method='post' action='./deleteuser.php'>";
-                echo "<input type='hidden' name='ID_delete' value='" . $row["ID"] . "'>";
-                echo "<input type='submit' value='Delete'>";
-                echo "</form>";
+                if ($_SESSION['Admin']=='Admin'){
+                    echo "\t<td>";
+                    echo "<form method='post' action='./deleteuser.php'>";
+                    echo "<input type='hidden' name='ID_delete' value='" . $row["ID"] . "'>";
+                    echo "<input type='submit' value='Delete'>";    
+                }
 
+                echo "</form>";
                 echo "</tr>\n";
             }
             ?>
@@ -122,10 +124,15 @@
             <label for="q5">User</label>
             </p>
 
-            <p class="createexpform">
-            <input type="submit" value="Submit">
-            <input type="reset">
-            </p>
+            <?php
+                if ($_SESSION['Admin']=='Yes'){
+                    echo '<p class="createexpform">
+                    <input type="submit" value="Submit">
+                    <input type="reset">
+                    </p>';
+                }
+            ?>
+
         </form>
     </div>
 
