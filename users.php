@@ -3,17 +3,23 @@
     require('db.php');
     include("auth_session.php");
 
+    $pwd_string = NULL;
+
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
+        $pwd = bin2hex(openssl_random_pseudo_bytes(4));
+        $submit_pwd = md5($pwd);
+        $pwd_string = "Your OTP for this user is $pwd";
+
         $name = $_POST['name'];
         $CRSid = $_POST['crsid'];
         $email = $_POST['email'];
         $admin_check = $_POST['admin'];
 
         $sql_r = "INSERT INTO users (Name_list, username, email, password, create_datetime, Admin_list) 
-                VALUES ('$name', '$CRSid', '$email', 'CUSF2022', '$date', '$admin_check')";
+                VALUES ('$name', '$CRSid', '$email', '$submit_pwd', '$date', '$admin_check')";
         if (mysqli_query($conn, $sql_r)) {
             $result = "New record created successfully";
-            header( "refresh:1;url=./users.php" );
+            header( "refresh:10;url=./users.php" );
         }
 
         else {
@@ -125,13 +131,17 @@
             </p>
 
             <?php
-                if ($_SESSION['Admin']=='Yes'){
+                if ($_SESSION['Admin']=='Admin'){
                     echo '<p class="createexpform">
                     <input type="submit" value="Submit">
                     <input type="reset">
                     </p>';
                 }
             ?>
+
+            <p style='color:red;' class="createexpform">
+                <?=$pwd_string?>
+            </p>
 
         </form>
     </div>

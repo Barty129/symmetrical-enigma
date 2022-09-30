@@ -137,14 +137,6 @@
     <div class="welcome_text">
         <h3>CUSF Project Management</h3>
         <p><em>Add a New Project</em></p>
-        <p style="color: red;">Last edited by <?=$previous_user?> on <?=$previous_change?>.
-        <div class="dropdown">
-        <span>Change Comments</span>
-            <div class="dropdown-content">
-                <p><?=$previous_comments?></p>
-            </div>
-        </div>
-    </p>
     </div>
 
     <div class="cancel">
@@ -154,7 +146,7 @@
     
     <div class="createexpform">
         <form class="createexpform" method="POST" id="projectform" action="./projects.php">
-            <p class="createexpform">
+            <p class="createexpform" id='high'>
             <label for="q1">Date</label>
             <input type="text" id="q1" name="date_update" value="<?=$old_date?>">
             </p>
@@ -318,6 +310,9 @@
             <br>
             <textarea style="resize: none;" id="q19" name="change_comments_upd" rows="4" cols="100"></textarea>
             </p>
+
+            <p class="createexpform4" style="color: red;">Last edited by <?=$previous_user?> on <?=$previous_change?>.
+            <br><u>Previous Comment:</u> <?=$previous_comments?></p>
 
             <input type='hidden' name='save_ID' value='<?=$tracker?>'>
             <input type="submit" value="Save">

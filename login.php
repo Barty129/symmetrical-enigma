@@ -40,7 +40,7 @@
         <input type="text" class="login-input" name="username" placeholder="Username" autofocus="true"/>
         <input type="password" class="login-input" name="password" placeholder="Password"/>
         <input type="submit" value="Login" name="submit" class="login-button"/>
-        <p class="loginlink"><a href="newuser.php">New User</a></p>
+        <p class="loginlink"><a href="newuser.php">Change Password</a></p>
   </form>
 <?php
     }
