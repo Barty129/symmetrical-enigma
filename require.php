@@ -1,7 +1,7 @@
 <?php
 $date = date('d-m-Y');
 
-require('db.php');
+include('/societies/cuspaceflight/management_mysqlconnect.inc.php');
 include("auth_session.php");
 
 $sent = " ";

@@ -1,7 +1,7 @@
 <?php 
  
 // Load the database configuration file 
-require('db.php');
+include('/societies/cuspaceflight/management_mysqlconnect.inc.php');
 include("auth_session.php");
  
 // Fetch records from database 

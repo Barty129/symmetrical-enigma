@@ -1,23 +1,13 @@
 <?php
 $date = date('d-m-Y');
-$servername = "localhost";
-$database = "cusf_test";
-$username = "root";
-// Create connection
-$conn = mysqli_connect($servername, $username, "", $database);
-// Check connection
-if (!$conn) {
-      die("Connection failed: " . mysqli_connect_error());
-}
- 
-$connection = "Connected successfully";
+include('/societies/cuspaceflight/management_mysqlconnect.inc.php');
 include("auth_session.php");
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $tracker = $_POST['trackid'];
     $rev_sql = "SELECT dateval, Namedesc, sys_id, Related_project, personName, desirable_1, desirable_2, desirable_3, essential_1, essential_2, essential_3, preferable_1,
-    preferable_2, preferable_3, sysint_1, sysint_2, sysint_3, perfvals_1, perfvals_2, perfvals_3, intproc_1, intproc_2, intproc_3, failmodes_1, 
+    preferable_2, preferable_3, sysint_1, sysint_2, sysint_3, perfvals_1, perfvals_2, perfvals_3, intproc_1, intproc_2, intproc_3, failmodes_1,
     failmodes_2, failmodes_3, designdocu_1, designdocu_2, designdocu_3, funcdocu_1, funcdocu_2, funcdocu_3, opsproc_1, opsproc_2, opsproc_3,
     last_editor, last_edited, change_comments FROM `management_requirements`" ."WHERE ID='" . $tracker . "'";
     $res=mysqli_query($conn, $rev_sql);
@@ -62,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
             $old_fundoc1 = $row["funcdocu_1"];
             $old_fundoc2 = $row["funcdocu_2"];
-            $old_fundoc3 = $row["funcdocu_3"]; 
+            $old_fundoc3 = $row["funcdocu_3"];
 
             $old_opspro1 = $row["opsproc_1"];
             $old_opspro2 = $row["opsproc_2"];
@@ -85,7 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./stylesheet.css">
     <title>Document</title>
-    
+
     <style>
 
     </style>
@@ -180,7 +170,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
         <a href="./projects.php"><h4 id="cancel">Cancel</h4></a>
     </div>
 
-    
+
     <div class="createexpform">
         <form class="createexpform" method="POST" id="projectform" action="./updatereq.php">
             <p class="createexpform">

@@ -7,7 +7,7 @@
 </head>
 <body>
 <?php
-    require('db.php');
+    include('/societies/cuspaceflight/management_mysqlconnect.inc.php');
     session_start();
     // When form submitted, check and create user session.
     if (isset($_POST['username'])) {
