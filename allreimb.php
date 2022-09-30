@@ -43,7 +43,7 @@ include("auth_session.php");
             <td>Date</td><td width="280">Name</td><td>ID</td><td>Progress State</td>
             </tr>
             <?php
-            $rec_sql = "SELECT ID, name_sys, system_id, progress, dateval, parent_require, child_require FROM `projects`";
+            $rec_sql = "SELECT ID, name_sys, system_id, progress, dateval, parent_require, child_require FROM `management_projects`";
             $res=mysqli_query($conn, $rec_sql);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr id='sidebartable'>\n";

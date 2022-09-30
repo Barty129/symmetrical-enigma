@@ -114,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 <tr>
                 </tr>
             <?php
-            $rec_sql = "SELECT ID, name_sys, system_id, progress, dateval, parent_require, child_require FROM `projects`";
+            $rec_sql = "SELECT ID, name_sys, system_id, progress, dateval, parent_require, child_require FROM `management_projects`";
             $res=mysqli_query($conn, $rec_sql);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
@@ -152,7 +152,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 <tr>
                 </tr>
             <?php
-            $rec_sql2 = "SELECT ID, Namedesc, sys_id, dateval FROM `requirements`";
+            $rec_sql2 = "SELECT ID, Namedesc, sys_id, dateval FROM `management_requirements`";
             $res=mysqli_query($conn, $rec_sql2);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
@@ -207,7 +207,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             <select id="q4" name="rela_project">
                 <option value="blank">----</option>
                 <?php
-                $rec_sql2 = "SELECT name_sys FROM `projects`";
+                $rec_sql2 = "SELECT name_sys FROM `management_projects`";
                 $res=mysqli_query($conn, $rec_sql2);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["name_sys"] . ">" . $row["name_sys"] . "</option>";
@@ -222,7 +222,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             <select id="q16" name="Personnel_1">
                 <option value="blank">----</option>
                 <?php
-                $rec_sql2 = "SELECT Name_list FROM `users`";
+                $rec_sql2 = "SELECT Name_list FROM `management_users`";
                 $res=mysqli_query($conn, $rec_sql2);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["Name_list"] . ">" . $row["Name_list"] . "</option>";

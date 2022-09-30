@@ -94,7 +94,7 @@
                 <tr>
                 </tr>
             <?php
-            $rec_sql = "SELECT ID, name_sys, system_id, progress, dateval, parent_require, child_require  FROM `projects`";
+            $rec_sql = "SELECT ID, name_sys, system_id, progress, dateval, parent_require, child_require  FROM `management_projects`";
             $res=mysqli_query($conn, $rec_sql);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
@@ -132,7 +132,7 @@
                 <tr>
                 </tr>
             <?php
-            $rec_sql2 = "SELECT ID, Namedesc, sys_id, dateval FROM `requirements`";
+            $rec_sql2 = "SELECT ID, Namedesc, sys_id, dateval FROM `management_requirements`";
             $res=mysqli_query($conn, $rec_sql2);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
@@ -187,7 +187,7 @@
             <select id="q4" name="Personnel_1">
                 <option value="blank">----</option>
                 <?php
-                $rec_sql2 = "SELECT Name_list FROM `users`";
+                $rec_sql2 = "SELECT Name_list FROM `management_users`";
                 $res=mysqli_query($conn, $rec_sql2);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["Name_list"] . ">" . $row["Name_list"] . "</option>";
@@ -198,7 +198,7 @@
             <select id="q4" name="Personnel_2">
                 <option value="blank">----</option>
                 <?php
-                $rec_sql2 = "SELECT Name_list FROM `users`";
+                $rec_sql2 = "SELECT Name_list FROM `management_users`";
                 $res=mysqli_query($conn, $rec_sql2);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["Name_list"] . ">" . $row["Name_list"] . "</option>";
@@ -209,7 +209,7 @@
             <select id="q4" name="Personnel_3">
                 <option value="blank">----</option>
                 <?php
-                $rec_sql2 = "SELECT Name_list FROM `users`";
+                $rec_sql2 = "SELECT Name_list FROM `management_users`";
                 $res=mysqli_query($conn, $rec_sql2);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["Name_list"] . ">" . $row["Name_list"] . "</option>";
@@ -224,7 +224,7 @@
             <select id="q5" name="p_project">
                 <option value="blank">----</option>
                 <?php
-                $rec_sql = "SELECT name_sys FROM `projects`";
+                $rec_sql = "SELECT name_sys FROM `management_projects`";
                 $res=mysqli_query($conn, $rec_sql);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["name_sys"] . ">" . $row["name_sys"] . "</option>";
@@ -274,7 +274,7 @@
             <select id="q8" name="p_requirements">
                 <option value="blank">----</option>
                 <?php
-                $rec_sql2 = "SELECT Namedesc FROM `requirements`";
+                $rec_sql2 = "SELECT Namedesc FROM `management_requirements`";
                 $res=mysqli_query($conn, $rec_sql2);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["Namedesc"] . ">" . $row["Namedesc"] . "</option>";
@@ -290,7 +290,7 @@
             <select id="q9" name="c_requirements">
                 <option value="blank">----</option>
                 <?php
-                $rec_sql2 = "SELECT Namedesc FROM `requirements`";
+                $rec_sql2 = "SELECT Namedesc FROM `management_requirements`";
                 $res=mysqli_query($conn, $rec_sql2);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["Namedesc"] . ">" . $row["Namedesc"] . "</option>";
@@ -306,7 +306,7 @@
             <select id="q10" name="r_requirements">
                 <option value="blank">----</option>
                 <?php
-                $rec_sql2 = "SELECT Namedesc FROM `requirements`";
+                $rec_sql2 = "SELECT Namedesc FROM `management_requirements`";
                 $res=mysqli_query($conn, $rec_sql2);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["Namedesc"] . ">" . $row["Namedesc"] . "</option>";

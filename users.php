@@ -69,7 +69,7 @@
                 <tr>
                 </tr>
             <?php
-            $rec_sql2 = "SELECT ID, Name_list, username, Admin_list FROM `users`";
+            $rec_sql2 = "SELECT ID, Name_list, username, Admin_list FROM `management_users`";
             $res=mysqli_query($conn, $rec_sql2);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
