@@ -5,7 +5,7 @@ include("auth_session.php");
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
-    $tracker = $_POST['trackid'];
+    $tracker = mysql_real_escape_string($conn, $_POST['trackid']);
     $rev_sql = "SELECT dateval, Namedesc, sys_id, Related_project, personName, desirable_1, desirable_2, desirable_3, essential_1, essential_2, essential_3, preferable_1,
     preferable_2, preferable_3, sysint_1, sysint_2, sysint_3, perfvals_1, perfvals_2, perfvals_3, intproc_1, intproc_2, intproc_3, failmodes_1,
     failmodes_2, failmodes_3, designdocu_1, designdocu_2, designdocu_3, funcdocu_1, funcdocu_2, funcdocu_3, opsproc_1, opsproc_2, opsproc_3,

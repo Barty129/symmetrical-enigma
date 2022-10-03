@@ -5,33 +5,33 @@
     include("auth_session.php");
 
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
-        $date_proj = $_POST['date'];
-        $name = $_POST['Name'];
-        $ids = $_POST['_ID'];
+        $date_proj = mysql_real_escape_string($conn, $_POST['date']);
+        $name = mysql_real_escape_string($conn, $_POST['Name']);
+        $ids = mysql_real_escape_string($conn, $_POST['_ID']);
 
-        $person_1 = $_POST['Personnel_1'];
-        $person_2 = $_POST['Personnel_2'];
-        $person_3 = $_POST['Personnel_3'];
+        $person_1 = mysql_real_escape_string($conn, $_POST['Personnel_1']);
+        $person_2 = mysql_real_escape_string($conn, $_POST['Personnel_2']);
+        $person_3 = mysql_real_escape_string($conn, $_POST['Personnel_3']);
 
-        $parent_proj = $_POST['p_project'];
+        $parent_proj = mysql_real_escape_string($conn, $_POST['p_project']);
 
-        $tpm_1 = $_POST['tpm1'];
-        $tpm_2 = $_POST['tpm2'];
-        $tpm_3 = $_POST['tpm3'];
+        $tpm_1 = mysql_real_escape_string($conn, $_POST['tpm1']);
+        $tpm_2 = mysql_real_escape_string($conn, $_POST['tpm2']);
+        $tpm_3 = mysql_real_escape_string($conn, $_POST['tpm3']);
 
-        $progress = $_POST['progress_state'];
-        $p_require = $_POST['p_requirements'];
-        $c_require = $_POST['c_requirements'];
-        $r_require = $_POST['r_requirements'];
+        $progress = mysql_real_escape_string($conn, $_POST['progress_state']);
+        $p_require = mysql_real_escape_string($conn, $_POST['p_requirements']);
+        $c_require = mysql_real_escape_string($conn, $_POST['c_requirements']);
+        $r_require = mysql_real_escape_string($conn, $_POST['r_requirements']);
 
-        $comment = $_POST['extradetail'];
-        $current_sol = $_POST['current_sol'];
-        $current_defi = $_POST['defi_sol'];
-        $crit_path = $_POST['crit_path'];
+        $comment = mysql_real_escape_string($conn, $_POST['extradetail']);
+        $current_sol = mysql_real_escape_string($conn, $_POST['current_sol']);
+        $current_defi = mysql_real_escape_string($conn, $_POST['defi_sol']);
+        $crit_path = mysql_real_escape_string($conn, $_POST['crit_path']);
 
-        $last_editor = $_POST['last_user'];
-        $last_edited = $_POST['last_time_change'];
-        $change_comments = $_POST['change_comments'];
+        $last_editor = mysql_real_escape_string($conn, $_POST['last_user']);
+        $last_edited = mysql_real_escape_string($conn, $_POST['last_time_change']);
+        $change_comments = mysql_real_escape_string($conn, $_POST['change_comments']);
 
         $sql_r = "INSERT INTO management_projects (dateval, name_sys , system_id, personnel_1, personnel_2, personnel_3, parent_proj, TPM_1, TPM_2, TPM_3,
                  progress, parent_require, child_require, related_require, comments, current_sol, current_defi, critical_path, last_editor,

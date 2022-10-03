@@ -10,10 +10,10 @@
         $submit_pwd = md5($pwd);
         $pwd_string = "Your OTP for this user is $pwd";
 
-        $name = $_POST['name'];
-        $CRSid = $_POST['crsid'];
-        $email = $_POST['email'];
-        $admin_check = $_POST['admin'];
+        $name = mysql_real_escape_string($conn, $_POST['name']);
+        $CRSid = mysql_real_escape_string($conn, $_POST['crsid']);
+        $email = mysql_real_escape_string($conn, $_POST['email']);
+        $admin_check = mysql_real_escape_string($conn, $_POST['admin']);
 
         $sql_r = "INSERT INTO management_users (Name_list, username, email, password, create_datetime, Admin_list)
                 VALUES ('$name', '$CRSid', '$email', '$submit_pwd', '$date', '$admin_check')";

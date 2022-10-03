@@ -6,35 +6,35 @@ $connection = "Connected successfully";
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
-    $update_select = $_POST['save_ID'];
+    $update_select = mysql_real_escape_string($conn, $_POST['save_ID']);
 
-    $date_proj_upds = $_POST['date_update'];
-    $name_upds = $_POST['Name_update'];
-    $ids_upds = $_POST['_ID_update'];
+    $date_proj_upds = mysql_real_escape_string($conn, $_POST['date_update']);
+    $name_upds = mysql_real_escape_string($conn, $_POST['Name_update']);
+    $ids_upds = mysql_real_escape_string($conn, $_POST['_ID_update']);
 
-    $person_1_upds = $_POST['Personnel_1_update'];
-    $person_2_upds = $_POST['Personnel_2_update'];
-    $person_3_upds = $_POST['Personnel_3_update'];
+    $person_1_upds = mysql_real_escape_string($conn, $_POST['Personnel_1_update']);
+    $person_2_upds = mysql_real_escape_string($conn, $_POST['Personnel_2_update']);
+    $person_3_upds = mysql_real_escape_string($conn, $_POST['Personnel_3_update']);
 
-    $parent_proj_upds = $_POST['p_project_update'];
+    $parent_proj_upds = mysql_real_escape_string($conn, $_POST['p_project_update']);
 
-    $tpm_1_upds = $_POST['tpm1_update'];
-    $tpm_2_upds = $_POST['tpm2_update'];
-    $tpm_3_upds = $_POST['tpm3_update'];
+    $tpm_1_upds = mysql_real_escape_string($conn, $_POST['tpm1_update']);
+    $tpm_2_upds = mysql_real_escape_string($conn, $_POST['tpm2_update']);
+    $tpm_3_upds = mysql_real_escape_string($conn, $_POST['tpm3_update']);
 
-    $progress_upds = $_POST['progress_state_update']; 
-    $p_require_upds = $_POST['p_requirements_update'];
-    $c_require_upds = $_POST['c_requirements_update'];
-    $r_require_upds = $_POST['r_requirements_update']; 
+    $progress_upds = mysql_real_escape_string($conn, $_POST['progress_state_update']); 
+    $p_require_upds = mysql_real_escape_string($conn, $_POST['p_requirements_update']);
+    $c_require_upds = mysql_real_escape_string($conn, $_POST['c_requirements_update']);
+    $r_require_upds = mysql_real_escape_string($conn, $_POST['r_requirements_update']); 
 
-    $comment_upds = $_POST['extradetail_update'];
-    $current_sol_upds = $_POST['current_sol_update'];
-    $current_defi_upds = $_POST['defi_sol_update'];
-    $crit_path_upds = $_POST['crit_path_update'];
+    $comment_upds = mysql_real_escape_string($conn, $_POST['extradetail_update']);
+    $current_sol_upds = mysql_real_escape_string($conn, $_POST['current_sol_update']);
+    $current_defi_upds = mysql_real_escape_string($conn, $_POST['defi_sol_update']);
+    $crit_path_upds = mysql_real_escape_string($conn, $_POST['crit_path_update']);
 
-    $last_user_upds = $_POST['last_user_upd'];
-    $last_changed_upds = $_POST['last_time_upd'];
-    $change_comments_upds = $_POST['change_comments_upd'];
+    $last_user_upds = mysql_real_escape_string($conn, $_POST['last_user_upd']);
+    $last_changed_upds = mysql_real_escape_string($conn, $_POST['last_time_upd']);
+    $change_comments_upds = mysql_real_escape_string($conn, $_POST['change_comments_upd']);
 
     $sql_update = "UPDATE management_projects SET dateval='$date_proj_upds', name_sys='$name_upds' , system_id='$ids_upds', personnel_1='$person_1_upds', personnel_2='$person_2_upds', 
     personnel_3='$person_3_upds', parent_proj='$parent_proj_upds', TPM_1='$tpm_1_upds', TPM_2='$tpm_1_upds', TPM_3='$tpm_1_upds', progress='$progress_upds', 

@@ -4,7 +4,7 @@
     include("auth_session.php");
 
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
-        $tracker = $_POST['trackid'];
+        $tracker = mysql_real_escape_string($conn, $_POST['trackid']);
         $pro_sql = "SELECT ID, dateval, name_sys, system_id, personnel_1, personnel_2, personnel_3, parent_proj, TPM_1, TPM_2, TPM_3,
         progress,  parent_require, child_require, related_require, comments, current_sol, current_defi, critical_path, last_editor,
         last_edited, change_comments FROM management_projects" . "WHERE ID='" . $tracker . "'";

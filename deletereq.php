@@ -3,8 +3,8 @@
     include('/societies/cuspaceflight/management_mysqlconnect.inc.php');
     include("auth_session.php");
 
-    if ($_SERVER["REQUEST_METHOD"] == "POST"){
-        $ID_delete = $_POST['ID_delete'];
+    if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_SESSION['Admin']=='Admin'){
+        $ID_delete = mysql_real_escape_string($conn, $_POST['ID_delete']);
         $rec_del = "DELETE FROM management_requirements" ."WHERE ID='" . $ID_delete . "'";
         if (mysqli_query($conn, $rec_del)) {
             $result = "Successfully Deleted";
