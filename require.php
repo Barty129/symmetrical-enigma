@@ -7,55 +7,55 @@ include("auth_session.php");
 $sent = " ";
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
-    $date_proj_r = $_POST['date_r'];
-    $name_r = $_POST['Name_r'];
-    $ids_r = $_POST['_ID_r'];
-    $pr_project = $_POST['rela_project'];
-    $person_1 = $_POST['Personnel_1'];
+    $date_proj_r = mysql_real_escape_string($conn, $_POST['date_r']);
+    $name_r = mysql_real_escape_string($conn, $_POST['Name_r']);
+    $ids_r = mysql_real_escape_string($conn, $_POST['_ID_r']);
+    $pr_project = mysql_real_escape_string($conn, $_POST['rela_project']);
+    $person_1 = mysql_real_escape_string($conn, $_POST['Personnel_1']);
 
-    $essential1_r = $_POST['essential1'];
-    $essential2_r = $_POST['essential2'];
-    $essential3_r = $_POST['essential3'];
+    $essential1_r = mysql_real_escape_string($conn, $_POST['essential1']);
+    $essential2_r = mysql_real_escape_string($conn, $_POST['essential2']);
+    $essential3_r = mysql_real_escape_string($conn, $_POST['essential3']);
 
-    $desirable1_r = $_POST['desirable1'];
-    $desirable2_r = $_POST['desirable2'];
-    $desirable3_r = $_POST['desirable3'];
+    $desirable1_r = mysql_real_escape_string($conn, $_POST['desirable1']);
+    $desirable2_r = mysql_real_escape_string($conn, $_POST['desirable2']);
+    $desirable3_r = mysql_real_escape_string($conn, $_POST['desirable3']);
 
-    $preferable1_r = $_POST['preferable1'];
-    $preferable2_r = $_POST['preferable2'];
-    $preferable3_r = $_POST['preferable3'];
+    $preferable1_r = mysql_real_escape_string($conn, $_POST['preferable1']);
+    $preferable2_r = mysql_real_escape_string($conn, $_POST['preferable2']);
+    $preferable3_r = mysql_real_escape_string($conn, $_POST['preferable3']);
 
-    $sysi1_r = $_POST['sysi1'];
-    $sysi2_r = $_POST['sysi2'];
-    $sysi3_r = $_POST['sysi3'];
+    $sysi1_r = mysql_real_escape_string($conn, $_POST['sysi1']);
+    $sysi2_r = mysql_real_escape_string($conn, $_POST['sysi2']);
+    $sysi3_r = mysql_real_escape_string($conn, $_POST['sysi3']);
 
-    $perfval1_r = $_POST['perfval1'];
-    $perfval2_r = $_POST['perfval2'];
-    $perfval3_r = $_POST['perfval3'];
+    $perfval1_r = mysql_real_escape_string($conn, $_POST['perfval1']);
+    $perfval2_r = mysql_real_escape_string($conn, $_POST['perfval2']);
+    $perfval3_r = mysql_real_escape_string($conn, $_POST['perfval3']);
 
-    $intpro1_r = $_POST['intpro1'];
-    $intpro2_r = $_POST['intpro2'];
-    $intpro3_r = $_POST['intpro3'];
+    $intpro1_r = mysql_real_escape_string($conn, $_POST['intpro1']);
+    $intpro2_r = mysql_real_escape_string($conn, $_POST['intpro2']);
+    $intpro3_r = mysql_real_escape_string($conn, $_POST['intpro3']);
 
-    $failerror1_r = $_POST['failerrorhandle1'];
-    $failerror2_r = $_POST['failerrorhandle2'];
-    $failerror3_r = $_POST['failerrorhandle3'];
+    $failerror1_r = mysql_real_escape_string($conn, $_POST['failerrorhandle1']);
+    $failerror2_r = mysql_real_escape_string($conn, $_POST['failerrorhandle2']);
+    $failerror3_r = mysql_real_escape_string($conn, $_POST['failerrorhandle3']);
 
-    $designdocu1_r = $_POST['designdocu1'];
-    $designdocu2_r = $_POST['designdocu2'];
-    $designdocu3_r = $_POST['designdocu3'];
+    $designdocu1_r = mysql_real_escape_string($conn, $_POST['designdocu1']);
+    $designdocu2_r = mysql_real_escape_string($conn, $_POST['designdocu2']);
+    $designdocu3_r = mysql_real_escape_string($conn, $_POST['designdocu3']);
 
-    $funcdocu1_r = $_POST['funcdocu1'];
-    $funcdocu2_r = $_POST['funcdocu2'];
-    $funcdocu3_r = $_POST['funcdocu3'];
+    $funcdocu1_r = mysql_real_escape_string($conn, $_POST['funcdocu1']);
+    $funcdocu2_r = mysql_real_escape_string($conn, $_POST['funcdocu2']);
+    $funcdocu3_r = mysql_real_escape_string($conn, $_POST['funcdocu3']);
 
-    $opspro1_r = $_POST['opspro1'];
-    $opspro2_r = $_POST['opspro2'];
-    $opspro3_r = $_POST['opspro3'];
+    $opspro1_r = mysql_real_escape_string($conn, $_POST['opspro1']);
+    $opspro2_r = mysql_real_escape_string($conn, $_POST['opspro2']);
+    $opspro3_r = mysql_real_escape_string($conn, $_POST['opspro3']);
 
-    $last_editor = $_POST['last_user'];
-    $last_edited = $_POST['last_time_change'];
-    $change_comments = $_POST['change_comments'];
+    $last_editor = mysql_real_escape_string($conn, $_POST['last_user']);
+    $last_edited = mysql_real_escape_string($conn, $_POST['last_time_change']);
+    $change_comments = mysql_real_escape_string($conn, $_POST['change_comments']);
 
     //Now look who is good at SQL, TC? - BW
     //It's just long, no match for my sexy table joins in the expenses system
