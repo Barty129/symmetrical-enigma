@@ -1,13 +1,13 @@
 <?php 
     $date = date('d-m-Y');
-    require('db.php');
+    include('/societies/cuspaceflight/management_mysqlconnect.inc.php');
     include("auth_session.php");
 
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
         $tracker = $_POST['trackid'];
         $pro_sql = "SELECT ID, dateval, name_sys, system_id, personnel_1, personnel_2, personnel_3, parent_proj, TPM_1, TPM_2, TPM_3,
         progress,  parent_require, child_require, related_require, comments, current_sol, current_defi, critical_path, last_editor,
-        last_edited, change_comments FROM `projects`" . "WHERE ID='" . $tracker . "'";
+        last_edited, change_comments FROM management_projects" . "WHERE ID='" . $tracker . "'";
         $res=mysqli_query($conn, $pro_sql);
         while ($row=mysqli_fetch_array($res)) {
                 $old_date = $row["dateval"];
@@ -55,7 +55,7 @@
 <body>
     <nav class="topnav">
         <ul class="navbar">
-            <li><a class="active" href="./projects.php">Project Tracker</a></li>
+            <li><a class="active" href="./index.php">Project Tracker</a></li>
           </ul>
     </nav>
 
@@ -73,7 +73,7 @@
                 <tr>
                 </tr>
             <?php
-            $rec_sql = "SELECT ID, name_sys, system_id, progress, dateval, parent_require, child_require  FROM `projects`";
+            $rec_sql = "SELECT ID, name_sys, system_id, progress, dateval, parent_require, child_require  FROM management_projects";
             $res=mysqli_query($conn, $rec_sql);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
@@ -111,7 +111,7 @@
                 <tr>
                 </tr>
             <?php
-            $rec_sql2 = "SELECT ID, Namedesc, sys_id, dateval FROM `requirements`";
+            $rec_sql2 = "SELECT ID, Namedesc, sys_id, dateval FROM management_requirements";
             $res=mysqli_query($conn, $rec_sql2);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
@@ -140,12 +140,12 @@
     </div>
 
     <div class="cancel">
-        <a href="./projects.php"><h4 id="cancel">Cancel</h4></a>
+        <a href="./index.php"><h4 id="cancel">Cancel</h4></a>
     </div>
 
     
     <div class="createexpform">
-        <form class="createexpform" method="POST" id="projectform" action="./projects.php">
+        <form class="createexpform" method="POST" id="projectform" action="./index.php">
             <p class="createexpform" id='high'>
             <label for="q1">Date</label>
             <input type="text" id="q1" name="date_update" value="<?=$old_date?>">
@@ -173,7 +173,7 @@
             <select id="q5" name="p_project_update">
                 <option value="<?=$old_parentproj?>"><?=$old_parentproj?></option>
                 <?php
-                $rec_sql = "SELECT name_sys FROM `projects`";
+                $rec_sql = "SELECT name_sys FROM management_projects";
                 $res=mysqli_query($conn, $rec_sql);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["name_sys"] . ">" . $row["name_sys"] . "</option>";
@@ -223,7 +223,7 @@
             <select id="q8" name="p_requirements_update">
                 <option value="<?=$old_parentreq?>"><?=$old_parentreq?></option>
                 <?php
-                $rec_sql2 = "SELECT Namedesc FROM `requirements`";
+                $rec_sql2 = "SELECT Namedesc FROM management_requirements";
                 $res=mysqli_query($conn, $rec_sql2);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["Namedesc"] . ">" . $row["Namedesc"] . "</option>";
@@ -239,7 +239,7 @@
             <select id="q9" name="c_requirements_update">
                 <option value="<?=$old_childreq?>"><?=$old_childreq?></option>
                 <?php
-                $rec_sql2 = "SELECT Namedesc FROM `requirements`";
+                $rec_sql2 = "SELECT Namedesc FROM management_requirements";
                 $res=mysqli_query($conn, $rec_sql2);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["Namedesc"] . ">" . $row["Namedesc"] . "</option>";
@@ -255,7 +255,7 @@
             <select id="q10" name="r_requirements_update">
                 <option value="<?=$old_relatedreq?>"><?=$old_relatedreq?></option>
                 <?php
-                $rec_sql2 = "SELECT Namedesc FROM `requirements`";
+                $rec_sql2 = "SELECT Namedesc FROM management_requirements";
                 $res=mysqli_query($conn, $rec_sql2);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["Namedesc"] . ">" . $row["Namedesc"] . "</option>";

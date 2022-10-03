@@ -1,5 +1,5 @@
 <?php 
-require('db.php');
+include('/societies/cuspaceflight/management_mysqlconnect.inc.php');
 include("auth_session.php");
 ?>
 
@@ -24,7 +24,7 @@ include("auth_session.php");
 <body>
     <nav class="topnav">
         <ul class="navbar">
-            <li><a class="active" href="./projects.php">Project Tracker</a></li>
+            <li><a class="active" href="./index.php">Project Tracker</a></li>
           </ul>
     </nav>
 
@@ -34,7 +34,7 @@ include("auth_session.php");
     </div>
 
     <div class="cancel">
-        <a href="./projects.php"><h4 id="cancel">Cancel</h4></a>
+        <a href="./index.php"><h4 id="cancel">Cancel</h4></a>
     </div>
 
     <div class="allreimbtable">
@@ -43,7 +43,7 @@ include("auth_session.php");
             <td>Date</td><td width="280">Name</td><td>ID</td><td>Progress State</td>
             </tr>
             <?php
-            $rec_sql = "SELECT ID, name_sys, system_id, progress, dateval, parent_require, child_require FROM `projects`";
+            $rec_sql = "SELECT ID, name_sys, system_id, progress, dateval, parent_require, child_require FROM management_projects";
             $res=mysqli_query($conn, $rec_sql);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr id='sidebartable'>\n";

@@ -1,6 +1,6 @@
-<?php 
+<?php
     $date = date('d-m-Y');
-    require('db.php');
+    include('/societies/cuspaceflight/management_mysqlconnect.inc.php');
     include("auth_session.php");
 
     $pwd_string = NULL;
@@ -15,7 +15,7 @@
         $email = $_POST['email'];
         $admin_check = $_POST['admin'];
 
-        $sql_r = "INSERT INTO users (Name_list, username, email, password, create_datetime, Admin_list) 
+        $sql_r = "INSERT INTO management_users (Name_list, username, email, password, create_datetime, Admin_list)
                 VALUES ('$name', '$CRSid', '$email', '$submit_pwd', '$date', '$admin_check')";
         if (mysqli_query($conn, $sql_r)) {
             $result = "New record created successfully";
@@ -25,7 +25,7 @@
         else {
             $result =  "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
-    
+
     }
 ?>
 
@@ -40,7 +40,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./stylesheet.css">
     <title>Document</title>
-    
+
     <style>
 
     </style>
@@ -50,7 +50,7 @@
 <body>
     <nav class="topnav">
         <ul class="navbar">
-            <li><a class="active" href="./projects.php">Project Tracker</a></li>
+            <li><a class="active" href="./index.php">Project Tracker</a></li>
           </ul>
     </nav>
 
@@ -69,7 +69,7 @@
                 <tr>
                 </tr>
             <?php
-            $rec_sql2 = "SELECT ID, Name_list, username, Admin_list FROM `users`";
+            $rec_sql2 = "SELECT ID, Name_list, username, Admin_list FROM management_users";
             $res=mysqli_query($conn, $rec_sql2);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
@@ -81,7 +81,7 @@
                     echo "\t<td>";
                     echo "<form method='post' action='./deleteuser.php'>";
                     echo "<input type='hidden' name='ID_delete' value='" . $row["ID"] . "'>";
-                    echo "<input type='submit' value='Delete'>";    
+                    echo "<input type='submit' value='Delete'>";
                 }
 
                 echo "</form>";
@@ -101,10 +101,10 @@
     </div>
 
     <div class="cancel">
-        <a href="./projects.php"><h4 id="cancel">Cancel</h4></a>
+        <a href="./index.php"><h4 id="cancel">Cancel</h4></a>
     </div>
 
-    
+
     <div class="createexpform">
         <form class="createexpform" method="POST" id="projectform">
             <p class="createexpform">

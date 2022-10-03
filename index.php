@@ -1,5 +1,5 @@
 <?php
-require('db.php');
+include('/societies/cuspaceflight/management_mysqlconnect.inc.php');
 include("auth_session.php");
 
 $connection = "Connected successfully";
@@ -36,7 +36,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $last_changed_upds = $_POST['last_time_upd'];
     $change_comments_upds = $_POST['change_comments_upd'];
 
-    $sql_update = "UPDATE `projects` SET dateval='$date_proj_upds', name_sys='$name_upds' , system_id='$ids_upds', personnel_1='$person_1_upds', personnel_2='$person_2_upds', 
+    $sql_update = "UPDATE management_projects SET dateval='$date_proj_upds', name_sys='$name_upds' , system_id='$ids_upds', personnel_1='$person_1_upds', personnel_2='$person_2_upds', 
     personnel_3='$person_3_upds', parent_proj='$parent_proj_upds', TPM_1='$tpm_1_upds', TPM_2='$tpm_1_upds', TPM_3='$tpm_1_upds', progress='$progress_upds', 
     parent_require='$p_require_upds', child_require='$c_require_upds', related_require='$r_require_upds', comments='$comment_upds', current_sol='$current_sol_upds',
     current_defi='$current_defi_upds', critical_path='$crit_path_upds', last_editor='$last_user_upds', last_edited='$last_changed_upds', change_comments='$change_comments_upds' " . "WHERE ID='" . $update_select . "'";
@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 <body>
     <nav class="topnav">
         <ul class="navbar">
-            <li><a class="active" href="./projects.php">Project Tracker</a></li>
+            <li><a class="active" href="./index.php">Project Tracker</a></li>
           </ul>
     </nav>
 
@@ -88,7 +88,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 <tr>
                 </tr>
             <?php
-            $rec_sql = "SELECT ID, name_sys, system_id, progress, dateval, parent_require, child_require FROM `projects`";
+            $rec_sql = "SELECT ID, name_sys, system_id, progress, dateval, parent_require, child_require FROM management_projects";
             $res=mysqli_query($conn, $rec_sql);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
@@ -125,7 +125,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 <tr>
                 </tr>
             <?php
-            $rec_sql2 = "SELECT ID, Namedesc, sys_id, dateval FROM `requirements`";
+            $rec_sql2 = "SELECT ID, Namedesc, sys_id, dateval FROM management_requirements";
             $res=mysqli_query($conn, $rec_sql2);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";

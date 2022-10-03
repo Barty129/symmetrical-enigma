@@ -1,0 +1,12 @@
+# Note that without this, it will fall back on the .htaccess in the parent
+# directory, and go to https://www.cusf.co.uk arrrhghghghghhgh kill me now
+#     -- Tim Clifford <tim@cusf.co.uk>
+
+RewriteEngine off
+
+# Require Raven authentication
+AuthType Ucam-WebAuth
+Require valid-user
+
+# Allow past members
+AARequiredPtags none

@@ -7,7 +7,7 @@
 </head>
 <body>
 <?php
-    require('db.php');
+    include('/societies/cuspaceflight/management_mysqlconnect.inc.php');
     session_start();
     // When form submitted, check and create user session.
     if (isset($_POST['username'])) {
@@ -16,7 +16,7 @@
         $password = stripslashes($_REQUEST['password']);
         $password = mysqli_real_escape_string($conn, $password);
         // Check user is exist in the database
-        $query    = "SELECT * FROM `users` WHERE username='$username'
+        $query    = "SELECT * FROM management_users WHERE username='$username'
                      AND password='" . md5($password) . "'";
         $result = mysqli_query($conn, $query) or die(mysql_error());
         $rows = mysqli_num_rows($result);
@@ -26,7 +26,7 @@
             $_SESSION['Name'] = $arrays["Name_list"];
             $_SESSION['Admin'] = $arrays["Admin_list"];
             // Redirect to user dashboard page
-            header("Location: projects.php");
+            header("Location: index.php");
         } else {
             echo "<div class='form'>
                   <h3>Incorrect Username/password.</h3><br/>

@@ -7,7 +7,7 @@
 </head>
 <body>
 <?php
-    require('db.php');
+    include('/societies/cuspaceflight/management_mysqlconnect.inc.php');
     // When form submitted, insert values into the database.
     if (isset($_REQUEST['username'])) {
         // removes backslashes
@@ -18,14 +18,14 @@
         $new_password = $_REQUEST['new_password'];
         $password_new = mysqli_real_escape_string($conn, $new_password);
 
-        $query    = "SELECT * FROM `users` WHERE username='$username' AND password='" . md5($old_password) . "'";
+        $query    = "SELECT * FROM management_users WHERE username='$username' AND password='" . md5($old_password) . "'";
         $result = mysqli_query($conn, $query) or die(mysql_error());
         $rows = mysqli_num_rows($result);
-        
-        $sql_update = "UPDATE `users` SET password='". md5($password_new) ."' WHERE username='" . $username . "' AND password= '" . md5($old_password) . "'";
-        $update = mysqli_query($conn, $sql_update);
 
         if ($rows == 1) {
+
+            $sql_update = "UPDATE management_users SET password='". md5($password_new) ."' WHERE username='" . $username . "' AND password= '" . md5($old_password) . "'";
+            $update = mysqli_query($conn, $sql_update);
             echo "<div class='loginform'>
                   <h3>You are registered successfully.</h3><br/>
                   <p class='link'>Click here to <a href='login.php'>Login</a></p>
