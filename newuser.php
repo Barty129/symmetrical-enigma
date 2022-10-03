@@ -18,13 +18,13 @@
         $new_password = $_REQUEST['new_password'];
         $password_new = mysqli_real_escape_string($conn, $new_password);
 
-        $query    = "SELECT * FROM `users` WHERE username='$username' AND password='" . md5($old_password) . "'";
+        $query    = "SELECT * FROM management_users WHERE username='$username' AND password='" . md5($old_password) . "'";
         $result = mysqli_query($conn, $query) or die(mysql_error());
         $rows = mysqli_num_rows($result);
 
         if ($rows == 1) {
 
-            $sql_update = "UPDATE `users` SET password='". md5($password_new) ."' WHERE username='" . $username . "' AND password= '" . md5($old_password) . "'";
+            $sql_update = "UPDATE management_users SET password='". md5($password_new) ."' WHERE username='" . $username . "' AND password= '" . md5($old_password) . "'";
             $update = mysqli_query($conn, $sql_update);
             echo "<div class='loginform'>
                   <h3>You are registered successfully.</h3><br/>

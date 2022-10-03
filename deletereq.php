@@ -5,7 +5,7 @@
 
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
         $ID_delete = $_POST['ID_delete'];
-        $rec_del = "DELETE FROM `management_requirements`" ."WHERE ID='" . $ID_delete . "'";
+        $rec_del = "DELETE FROM management_requirements" ."WHERE ID='" . $ID_delete . "'";
         if (mysqli_query($conn, $rec_del)) {
             $result = "Successfully Deleted";
             header( "refresh:1;url=./index.php" );

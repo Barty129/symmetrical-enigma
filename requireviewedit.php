@@ -9,7 +9,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     $rev_sql = "SELECT dateval, Namedesc, sys_id, Related_project, personName, desirable_1, desirable_2, desirable_3, essential_1, essential_2, essential_3, preferable_1,
     preferable_2, preferable_3, sysint_1, sysint_2, sysint_3, perfvals_1, perfvals_2, perfvals_3, intproc_1, intproc_2, intproc_3, failmodes_1,
     failmodes_2, failmodes_3, designdocu_1, designdocu_2, designdocu_3, funcdocu_1, funcdocu_2, funcdocu_3, opsproc_1, opsproc_2, opsproc_3,
-    last_editor, last_edited, change_comments FROM `management_requirements`" ."WHERE ID='" . $tracker . "'";
+    last_editor, last_edited, change_comments FROM management_requirements" ."WHERE ID='" . $tracker . "'";
     $res=mysqli_query($conn, $rev_sql);
         while ($row=mysqli_fetch_array($res)) {
             $old_date = $row["dateval"];
@@ -102,7 +102,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 <tr>
                 </tr>
             <?php
-            $rec_sql = "SELECT ID, name_sys, system_id, progress, dateval, parent_require, child_require  FROM `management_projects`";
+            $rec_sql = "SELECT ID, name_sys, system_id, progress, dateval, parent_require, child_require  FROM management_projects";
             $res=mysqli_query($conn, $rec_sql);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
@@ -138,7 +138,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
                 <tr>
                 </tr>
             <?php
-            $rec_sql2 = "SELECT ID, Namedesc, sys_id, dateval FROM `management_requirements`";
+            $rec_sql2 = "SELECT ID, Namedesc, sys_id, dateval FROM management_requirements";
             $res=mysqli_query($conn, $rec_sql2);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
@@ -193,7 +193,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             <select id="q15" name="rela_project_update">
                 <option value="<?=$old_project?>"><?=$old_project?></option>
                 <?php
-                $rec_sql2 = "SELECT Namedesc FROM `management_requirements`";
+                $rec_sql2 = "SELECT Namedesc FROM management_requirements";
                 $res=mysqli_query($conn, $rec_sql2);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["Namedesc"] . ">" . $row["Namedesc"] . "</option>";
@@ -208,7 +208,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             <select id="q16" name="Personnel_1_update">
                 <option value="<?=$old_user?>"><?=$old_user?></option>
                 <?php
-                $rec_sql2 = "SELECT Name_list FROM `management_users`";
+                $rec_sql2 = "SELECT Name_list FROM management_users";
                 $res=mysqli_query($conn, $rec_sql2);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["Name_list"] . ">" . $row["Name_list"] . "</option>";

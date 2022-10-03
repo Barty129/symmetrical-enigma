@@ -1,4 +1,4 @@
-<?php 
+<?php
     $date = date('d-m-Y');
 
     include('/societies/cuspaceflight/management_mysqlconnect.inc.php');
@@ -8,22 +8,22 @@
         $date_proj = $_POST['date'];
         $name = $_POST['Name'];
         $ids = $_POST['_ID'];
-    
+
         $person_1 = $_POST['Personnel_1'];
         $person_2 = $_POST['Personnel_2'];
         $person_3 = $_POST['Personnel_3'];
-    
+
         $parent_proj = $_POST['p_project'];
-    
+
         $tpm_1 = $_POST['tpm1'];
         $tpm_2 = $_POST['tpm2'];
         $tpm_3 = $_POST['tpm3'];
-    
-        $progress = $_POST['progress_state']; 
+
+        $progress = $_POST['progress_state'];
         $p_require = $_POST['p_requirements'];
         $c_require = $_POST['c_requirements'];
-        $r_require = $_POST['r_requirements']; 
-    
+        $r_require = $_POST['r_requirements'];
+
         $comment = $_POST['extradetail'];
         $current_sol = $_POST['current_sol'];
         $current_defi = $_POST['defi_sol'];
@@ -32,12 +32,12 @@
         $last_editor = $_POST['last_user'];
         $last_edited = $_POST['last_time_change'];
         $change_comments = $_POST['change_comments'];
-    
-        $sql_r = "INSERT INTO projects (dateval, name_sys , system_id, personnel_1, personnel_2, personnel_3, parent_proj, TPM_1, TPM_2, TPM_3,
+
+        $sql_r = "INSERT INTO management_projects (dateval, name_sys , system_id, personnel_1, personnel_2, personnel_3, parent_proj, TPM_1, TPM_2, TPM_3,
                  progress, parent_require, child_require, related_require, comments, current_sol, current_defi, critical_path, last_editor,
-                 last_edited, change_comments) 
+                 last_edited, change_comments)
                 VALUES ('$date_proj', '$name', '$ids', '$person_1', '$person_2', '$person_3', '$parent_proj', '$tpm_1', '$tpm_2', '$tpm_3',
-                 '$progress', '$p_require', '$c_require', '$r_require','$comment','$current_sol', '$current_defi', '$crit_path', '$last_editor', 
+                 '$progress', '$p_require', '$c_require', '$r_require','$comment','$current_sol', '$current_defi', '$crit_path', '$last_editor',
                  '$last_edited', '$change_comments')";
         if (mysqli_query($conn, $sql_r)) {
             $result = "New record created successfully";
@@ -46,13 +46,13 @@
         else {
             $result =  "Error: " . $sql . "<br>" . mysqli_error($conn);
         }
-    
+
     }
 ?>
 
 
 
-<?php 
+<?php
     $date = date('d-m-Y');
 ?>
 
@@ -66,7 +66,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./stylesheet.css">
     <title>Document</title>
-    
+
     <style>
 
     </style>
@@ -94,7 +94,7 @@
                 <tr>
                 </tr>
             <?php
-            $rec_sql = "SELECT ID, name_sys, system_id, progress, dateval, parent_require, child_require  FROM `management_projects`";
+            $rec_sql = "SELECT ID, name_sys, system_id, progress, dateval, parent_require, child_require  FROM management_projects";
             $res=mysqli_query($conn, $rec_sql);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
@@ -132,7 +132,7 @@
                 <tr>
                 </tr>
             <?php
-            $rec_sql2 = "SELECT ID, Namedesc, sys_id, dateval FROM `management_requirements`";
+            $rec_sql2 = "SELECT ID, Namedesc, sys_id, dateval FROM management_requirements";
             $res=mysqli_query($conn, $rec_sql2);
             while ($row=mysqli_fetch_array($res)) {
                 echo "<tr>\n";
@@ -164,7 +164,7 @@
         <a href="./index.php"><h4 id="cancel">Cancel</h4></a>
     </div>
 
-    
+
     <div class="createexpform">
         <form class="createexpform" method="POST" id="projectform">
             <p class="createexpform">
@@ -187,7 +187,7 @@
             <select id="q4" name="Personnel_1">
                 <option value="blank">----</option>
                 <?php
-                $rec_sql2 = "SELECT Name_list FROM `management_users`";
+                $rec_sql2 = "SELECT Name_list FROM management_users";
                 $res=mysqli_query($conn, $rec_sql2);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["Name_list"] . ">" . $row["Name_list"] . "</option>";
@@ -198,18 +198,18 @@
             <select id="q4" name="Personnel_2">
                 <option value="blank">----</option>
                 <?php
-                $rec_sql2 = "SELECT Name_list FROM `management_users`";
+                $rec_sql2 = "SELECT Name_list FROM management_users";
                 $res=mysqli_query($conn, $rec_sql2);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["Name_list"] . ">" . $row["Name_list"] . "</option>";
                 }
                 ?>
             </select>
-            
+
             <select id="q4" name="Personnel_3">
                 <option value="blank">----</option>
                 <?php
-                $rec_sql2 = "SELECT Name_list FROM `management_users`";
+                $rec_sql2 = "SELECT Name_list FROM management_users";
                 $res=mysqli_query($conn, $rec_sql2);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["Name_list"] . ">" . $row["Name_list"] . "</option>";
@@ -224,7 +224,7 @@
             <select id="q5" name="p_project">
                 <option value="blank">----</option>
                 <?php
-                $rec_sql = "SELECT name_sys FROM `management_projects`";
+                $rec_sql = "SELECT name_sys FROM management_projects";
                 $res=mysqli_query($conn, $rec_sql);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["name_sys"] . ">" . $row["name_sys"] . "</option>";
@@ -239,14 +239,14 @@
             <input type="text" list="tpms" id="q6" name="tpm1">,
             <input type="text" list="tpms" name="tpm2">,
             <input type="text" list="tpms" name="tpm3">
- 
+
             <datalist id="tpms">
                 <option value="Mass"></option>
                 <option value="Length"></option>
                 <option value="Cost"></option>
-                <option value="Volume"></option> 
-                <option value="No. of parts"></option> 
-                <option value="Machining Complexity"></option> 
+                <option value="Volume"></option>
+                <option value="No. of parts"></option>
+                <option value="Machining Complexity"></option>
             </datalist>
             </p>
 
@@ -274,7 +274,7 @@
             <select id="q8" name="p_requirements">
                 <option value="blank">----</option>
                 <?php
-                $rec_sql2 = "SELECT Namedesc FROM `management_requirements`";
+                $rec_sql2 = "SELECT Namedesc FROM management_requirements";
                 $res=mysqli_query($conn, $rec_sql2);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["Namedesc"] . ">" . $row["Namedesc"] . "</option>";
@@ -290,7 +290,7 @@
             <select id="q9" name="c_requirements">
                 <option value="blank">----</option>
                 <?php
-                $rec_sql2 = "SELECT Namedesc FROM `management_requirements`";
+                $rec_sql2 = "SELECT Namedesc FROM management_requirements";
                 $res=mysqli_query($conn, $rec_sql2);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["Namedesc"] . ">" . $row["Namedesc"] . "</option>";
@@ -306,7 +306,7 @@
             <select id="q10" name="r_requirements">
                 <option value="blank">----</option>
                 <?php
-                $rec_sql2 = "SELECT Namedesc FROM `management_requirements`";
+                $rec_sql2 = "SELECT Namedesc FROM management_requirements";
                 $res=mysqli_query($conn, $rec_sql2);
                 while ($row=mysqli_fetch_array($res)) {
                     echo "<option value=" . $row["Namedesc"] . ">" . $row["Namedesc"] . "</option>";
