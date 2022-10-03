@@ -68,7 +68,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
      '$opspro1_r', '$opspro2_r', '$opspro3_r', '$last_editor', '$last_edited', '$change_comments')";
     if (mysqli_query($conn, $sql_r)) {
         $result = "New record created successfully";
-        header( "refresh:1;url=./projects.php" );
+        header( "refresh:1;url=./index.php" );
     }
     else {
         $result =  "Error: " . $sql . "<br>" . mysqli_error($conn);
@@ -98,7 +98,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 <body>
     <nav class="topnav">
         <ul class="navbar">
-            <li><a class="active" href="./projects.php">Project Tracker</a></li>
+            <li><a class="active" href="./index.php">Project Tracker</a></li>
           </ul>
     </nav>
 
@@ -181,7 +181,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     </div>
 
     <div class="cancel">
-        <a href="./projects.php"><h4 id="cancel">Cancel</h4></a>
+        <a href="./index.php"><h4 id="cancel">Cancel</h4></a>
     </div>
 
     

@@ -41,7 +41,7 @@
                  '$last_edited', '$change_comments')";
         if (mysqli_query($conn, $sql_r)) {
             $result = "New record created successfully";
-            header( "refresh:1;url=./projects.php" );
+            header( "refresh:1;url=./index.php" );
         }
         else {
             $result =  "Error: " . $sql . "<br>" . mysqli_error($conn);
@@ -76,7 +76,7 @@
 <body>
     <nav class="topnav">
         <ul class="navbar">
-            <li><a class="active" href="./projects.php">Project Tracker</a></li>
+            <li><a class="active" href="./index.php">Project Tracker</a></li>
           </ul>
     </nav>
 
@@ -161,7 +161,7 @@
     </div>
 
     <div class="cancel">
-        <a href="./projects.php"><h4 id="cancel">Cancel</h4></a>
+        <a href="./index.php"><h4 id="cancel">Cancel</h4></a>
     </div>
 
     

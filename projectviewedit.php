@@ -55,7 +55,7 @@
 <body>
     <nav class="topnav">
         <ul class="navbar">
-            <li><a class="active" href="./projects.php">Project Tracker</a></li>
+            <li><a class="active" href="./index.php">Project Tracker</a></li>
           </ul>
     </nav>
 
@@ -140,12 +140,12 @@
     </div>
 
     <div class="cancel">
-        <a href="./projects.php"><h4 id="cancel">Cancel</h4></a>
+        <a href="./index.php"><h4 id="cancel">Cancel</h4></a>
     </div>
 
     
     <div class="createexpform">
-        <form class="createexpform" method="POST" id="projectform" action="./projects.php">
+        <form class="createexpform" method="POST" id="projectform" action="./index.php">
             <p class="createexpform" id='high'>
             <label for="q1">Date</label>
             <input type="text" id="q1" name="date_update" value="<?=$old_date?>">

@@ -8,7 +8,7 @@
         $rec_del = "DELETE FROM `management_projects`" ."WHERE ID='" . $ID_delete . "'";
         if (mysqli_query($conn, $rec_del)) {
             $result = "Successfully Deleted";
-            header( "refresh:1;url=./projects.php" );
+            header( "refresh:1;url=./index.php" );
         }
         else {
             $result =  "Error: " . $sql . "<br>" . mysqli_error($conn);

@@ -71,7 +71,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 <body>
     <nav class="topnav">
         <ul class="navbar">
-            <li><a class="active" href="./projects.php">Project Tracker</a></li>
+            <li><a class="active" href="./index.php">Project Tracker</a></li>
           </ul>
     </nav>
 

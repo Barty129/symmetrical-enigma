@@ -67,7 +67,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     //Now look who is good at SQL, TC? - BW
     if (mysqli_query($conn, $sql_update)) {
         $result = "Record Updated";
-        header( "refresh:2;url=./projects.php" );
+        header( "refresh:2;url=./index.php" );
     }
     else {
         $result =  "Error: " . $sql . "<br>" . mysqli_error($conn);

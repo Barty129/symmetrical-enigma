@@ -26,7 +26,7 @@
             $_SESSION['Name'] = $arrays["Name_list"];
             $_SESSION['Admin'] = $arrays["Admin_list"];
             // Redirect to user dashboard page
-            header("Location: projects.php");
+            header("Location: index.php");
         } else {
             echo "<div class='form'>
                   <h3>Incorrect Username/password.</h3><br/>
