@@ -10,10 +10,10 @@
         $submit_pwd = md5($pwd);
         $pwd_string = "Your OTP for this user is $pwd";
 
-        $name = mysql_real_escape_string($conn, $_POST['name']);
-        $CRSid = mysql_real_escape_string($conn, $_POST['crsid']);
-        $email = mysql_real_escape_string($conn, $_POST['email']);
-        $admin_check = mysql_real_escape_string($conn, $_POST['admin']);
+        $name = mysqli_real_escape_string($conn, $_POST['name']);
+        $CRSid = mysqli_real_escape_string($conn, $_POST['crsid']);
+        $email = mysqli_real_escape_string($conn, $_POST['email']);
+        $admin_check = mysqli_real_escape_string($conn, $_POST['admin']);
 
         $sql_r = "INSERT INTO management_users (Name_list, username, email, password, create_datetime, Admin_list)
                 VALUES ('$name', '$CRSid', '$email', '$submit_pwd', '$date', '$admin_check')";
@@ -150,7 +150,7 @@
 
 <footer class="footer">
     <p><em>The original CUSF expenses system was written in 2009 by Henry Hallam and was updated by Tim Clifford in 2021.</em></p>
-    <p>It was then rebuilt in 2022 to include management by Barty Wardell. You can email him <a id="email" href = "mailto: barty.wardell@gmail.com">here</a>.</p>
+    <p>This management system, loosely based on it, was built in 2022 by Barty Wardell. You can email him <a id="email" href = "mailto: barty.wardell@gmail.com">here</a>.</p>
 </footer>
 
 </html>

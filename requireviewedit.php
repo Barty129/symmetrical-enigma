@@ -5,11 +5,11 @@ include("auth_session.php");
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
-    $tracker = mysql_real_escape_string($conn, $_POST['trackid']);
+    $tracker = mysqli_real_escape_string($conn, $_POST['trackid']);
     $rev_sql = "SELECT dateval, Namedesc, sys_id, Related_project, personName, desirable_1, desirable_2, desirable_3, essential_1, essential_2, essential_3, preferable_1,
     preferable_2, preferable_3, sysint_1, sysint_2, sysint_3, perfvals_1, perfvals_2, perfvals_3, intproc_1, intproc_2, intproc_3, failmodes_1,
     failmodes_2, failmodes_3, designdocu_1, designdocu_2, designdocu_3, funcdocu_1, funcdocu_2, funcdocu_3, opsproc_1, opsproc_2, opsproc_3,
-    last_editor, last_edited, change_comments FROM management_requirements" ."WHERE ID='" . $tracker . "'";
+    last_editor, last_edited, change_comments FROM management_requirements " ."WHERE ID='" . $tracker . "'";
     $res=mysqli_query($conn, $rev_sql);
         while ($row=mysqli_fetch_array($res)) {
             $old_date = $row["dateval"];
@@ -345,7 +345,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
             <textarea style="resize: none;" id="q19" name="change_comments_upd" rows="4" cols="100"></textarea>
             </p>
 
-            
+
             <p class="createexpform4" style="color: red;">Last edited by <?=$previous_user?> on <?=$previous_change?>.
             <br><u>Previous Comment:</u> <?=$previous_comments?></p>
 
@@ -367,7 +367,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
 <footer class="footer">
     <p><em>The original CUSF expenses system was written in 2009 by Henry Hallam and was updated by Tim Clifford in 2021.</em></p>
-    <p>It was then rebuilt in 2022 to include management by Barty Wardell. You can email him <a id="email" href = "mailto: barty.wardell@gmail.com">here</a>.</p>
+    <p>This management system, loosely based on it, was built in 2022 by Barty Wardell. You can email him <a id="email" href = "mailto: barty.wardell@gmail.com">here</a>.</p>
 </footer>
 
 </html>

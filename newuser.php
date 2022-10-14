@@ -19,7 +19,7 @@
         $password_new = mysqli_real_escape_string($conn, $new_password);
 
         $query    = "SELECT * FROM management_users WHERE username='$username' AND password='" . md5($old_password) . "'";
-        $result = mysqli_query($conn, $query) or die(mysql_error());
+        $result = mysqli_query($conn, $query) or die(mysqli_error());
         $rows = mysqli_num_rows($result);
 
         if ($rows == 1) {

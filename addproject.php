@@ -5,33 +5,33 @@
     include("auth_session.php");
 
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
-        $date_proj = mysql_real_escape_string($conn, $_POST['date']);
-        $name = mysql_real_escape_string($conn, $_POST['Name']);
-        $ids = mysql_real_escape_string($conn, $_POST['_ID']);
+        $date_proj = mysqli_real_escape_string($conn, $_POST['date']);
+        $name = mysqli_real_escape_string($conn, $_POST['Name']);
+        $ids = mysqli_real_escape_string($conn, $_POST['_ID']);
 
-        $person_1 = mysql_real_escape_string($conn, $_POST['Personnel_1']);
-        $person_2 = mysql_real_escape_string($conn, $_POST['Personnel_2']);
-        $person_3 = mysql_real_escape_string($conn, $_POST['Personnel_3']);
+        $person_1 = mysqli_real_escape_string($conn, $_POST['Personnel_1']);
+        $person_2 = mysqli_real_escape_string($conn, $_POST['Personnel_2']);
+        $person_3 = mysqli_real_escape_string($conn, $_POST['Personnel_3']);
 
-        $parent_proj = mysql_real_escape_string($conn, $_POST['p_project']);
+        $parent_proj = mysqli_real_escape_string($conn, $_POST['p_project']);
 
-        $tpm_1 = mysql_real_escape_string($conn, $_POST['tpm1']);
-        $tpm_2 = mysql_real_escape_string($conn, $_POST['tpm2']);
-        $tpm_3 = mysql_real_escape_string($conn, $_POST['tpm3']);
+        $tpm_1 = mysqli_real_escape_string($conn, $_POST['tpm1']);
+        $tpm_2 = mysqli_real_escape_string($conn, $_POST['tpm2']);
+        $tpm_3 = mysqli_real_escape_string($conn, $_POST['tpm3']);
 
-        $progress = mysql_real_escape_string($conn, $_POST['progress_state']);
-        $p_require = mysql_real_escape_string($conn, $_POST['p_requirements']);
-        $c_require = mysql_real_escape_string($conn, $_POST['c_requirements']);
-        $r_require = mysql_real_escape_string($conn, $_POST['r_requirements']);
+        $progress = mysqli_real_escape_string($conn, $_POST['progress_state']);
+        $p_require = mysqli_real_escape_string($conn, $_POST['p_requirements']);
+        $c_require = mysqli_real_escape_string($conn, $_POST['c_requirements']);
+        $r_require = mysqli_real_escape_string($conn, $_POST['r_requirements']);
 
-        $comment = mysql_real_escape_string($conn, $_POST['extradetail']);
-        $current_sol = mysql_real_escape_string($conn, $_POST['current_sol']);
-        $current_defi = mysql_real_escape_string($conn, $_POST['defi_sol']);
-        $crit_path = mysql_real_escape_string($conn, $_POST['crit_path']);
+        $comment = mysqli_real_escape_string($conn, $_POST['extradetail']);
+        $current_sol = mysqli_real_escape_string($conn, $_POST['current_sol']);
+        $current_defi = mysqli_real_escape_string($conn, $_POST['defi_sol']);
+        $crit_path = mysqli_real_escape_string($conn, $_POST['crit_path']);
 
-        $last_editor = mysql_real_escape_string($conn, $_POST['last_user']);
-        $last_edited = mysql_real_escape_string($conn, $_POST['last_time_change']);
-        $change_comments = mysql_real_escape_string($conn, $_POST['change_comments']);
+        $last_editor = mysqli_real_escape_string($conn, $_POST['last_user']);
+        $last_edited = mysqli_real_escape_string($conn, $_POST['last_time_change']);
+        $change_comments = mysqli_real_escape_string($conn, $_POST['change_comments']);
 
         $sql_r = "INSERT INTO management_projects (dateval, name_sys , system_id, personnel_1, personnel_2, personnel_3, parent_proj, TPM_1, TPM_2, TPM_3,
                  progress, parent_require, child_require, related_require, comments, current_sol, current_defi, critical_path, last_editor,
@@ -373,7 +373,7 @@
 
 <footer class="footer">
     <p><em>The original CUSF expenses system was written in 2009 by Henry Hallam and was updated by Tim Clifford in 2021.</em></p>
-    <p>It was then rebuilt in 2022 to include management by Barty Wardell. You can email him <a id="email" href = "mailto: barty.wardell@gmail.com">here</a>.</p>
+    <p>This management system, loosely based on it, was built in 2022 by Barty Wardell. You can email him <a id="email" href = "mailto: barty.wardell@gmail.com">here</a>.</p>
 </footer>
 
 </html>

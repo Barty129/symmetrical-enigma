@@ -1,13 +1,13 @@
-<?php 
+<?php
     $date = date('d-m-Y');
     include('/societies/cuspaceflight/management_mysqlconnect.inc.php');
     include("auth_session.php");
 
     if ($_SERVER["REQUEST_METHOD"] == "POST"){
-        $tracker = mysql_real_escape_string($conn, $_POST['trackid']);
+        $tracker = mysqli_real_escape_string($conn, $_POST['trackid']);
         $pro_sql = "SELECT ID, dateval, name_sys, system_id, personnel_1, personnel_2, personnel_3, parent_proj, TPM_1, TPM_2, TPM_3,
         progress,  parent_require, child_require, related_require, comments, current_sol, current_defi, critical_path, last_editor,
-        last_edited, change_comments FROM management_projects" . "WHERE ID='" . $tracker . "'";
+        last_edited, change_comments FROM management_projects " . "WHERE ID='" . $tracker . "'";
         $res=mysqli_query($conn, $pro_sql);
         while ($row=mysqli_fetch_array($res)) {
                 $old_date = $row["dateval"];
@@ -32,7 +32,7 @@
                 $previous_change = $row["last_edited"];
                 $previous_comments = $row["change_comments"];
     }
-}    
+}
 ?>
 
 <!DOCTYPE html>
@@ -45,7 +45,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./stylesheet.css">
     <title>Document</title>
-    
+
     <style>
 
     </style>
@@ -143,7 +143,7 @@
         <a href="./index.php"><h4 id="cancel">Cancel</h4></a>
     </div>
 
-    
+
     <div class="createexpform">
         <form class="createexpform" method="POST" id="projectform" action="./index.php">
             <p class="createexpform" id='high'>
@@ -188,14 +188,14 @@
             <input type="text" list="tpms" id="q6" name="tpm1_update" value="<?=$old_tpm1?>">,
             <input type="text" list="tpms" name="tpm2_update" value="<?=$old_tpm2?>">,
             <input type="text" list="tpms" name="tpm3_update" value="<?=$old_tpm3?>">
- 
+
             <datalist id="tpms">
                 <option value="Mass"></option>
                 <option value="Length"></option>
                 <option value="Cost"></option>
-                <option value="Volume"></option> 
-                <option value="No. of parts"></option> 
-                <option value="Machining Complexity"></option> 
+                <option value="Volume"></option>
+                <option value="No. of parts"></option>
+                <option value="Machining Complexity"></option>
             </datalist>
             </p>
 
@@ -332,7 +332,7 @@
 
 <footer class="footer">
     <p><em>The original CUSF expenses system was written in 2009 by Henry Hallam and was updated by Tim Clifford in 2021.</em></p>
-    <p>It was then rebuilt in 2022 to include management by Barty Wardell. You can email him <a id="email" href = "mailto: barty.wardell@gmail.com">here</a>.</p>
+    <p>This management system, loosely based on it, was built in 2022 by Barty Wardell. You can email him <a id="email" href = "mailto: barty.wardell@gmail.com">here</a>.</p>
 </footer>
 
 </html>
