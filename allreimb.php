@@ -1,4 +1,4 @@
-<?php 
+<?php
 include('/societies/cuspaceflight/management_mysqlconnect.inc.php');
 include("auth_session.php");
 ?>
@@ -14,7 +14,7 @@ include("auth_session.php");
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="./stylesheet.css">
     <title>Document</title>
-    
+
     <style>
 
     </style>
@@ -51,7 +51,7 @@ include("auth_session.php");
                 echo "\t<td>".$row["name_sys"]."</td>\n";
                 echo "\t<td>".$row["system_id"]."</td>\n";
                 echo "\t<td>".$row["progress"]."</td>\n";
-            
+
                 echo "</tr>\n";
             }
 
@@ -62,12 +62,12 @@ include("auth_session.php");
     <div class="allreimb">
     <a href="./csv.php"><h2 id="allreimb">Download CSV</h2></a>
     </div>
-    
+
 </body>
 
 <footer class="footer">
     <p><em>The original CUSF expenses system was written in 2009 by Henry Hallam and was updated by Tim Clifford in 2021.</em></p>
-    <p>It was then rebuilt in 2022 to include management by Barty Wardell. You can email him <a id="email" href = "mailto: barty.wardell@gmail.com">here</a>.</p>
+    <p>This management system, loosely based on it, was built in 2022 by Barty Wardell. You can email him <a id="email" href = "mailto: barty.wardell@gmail.com">here</a>.</p>
 </footer>
 
 </html>

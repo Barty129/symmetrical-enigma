@@ -6,38 +6,38 @@ $connection = "Connected successfully";
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST"){
-    $update_select = mysql_real_escape_string($conn, $_POST['save_ID']);
+    $update_select = mysqli_real_escape_string($conn, $_POST['save_ID']);
 
-    $date_proj_upds = mysql_real_escape_string($conn, $_POST['date_update']);
-    $name_upds = mysql_real_escape_string($conn, $_POST['Name_update']);
-    $ids_upds = mysql_real_escape_string($conn, $_POST['_ID_update']);
+    $date_proj_upds = mysqli_real_escape_string($conn, $_POST['date_update']);
+    $name_upds = mysqli_real_escape_string($conn, $_POST['Name_update']);
+    $ids_upds = mysqli_real_escape_string($conn, $_POST['_ID_update']);
 
-    $person_1_upds = mysql_real_escape_string($conn, $_POST['Personnel_1_update']);
-    $person_2_upds = mysql_real_escape_string($conn, $_POST['Personnel_2_update']);
-    $person_3_upds = mysql_real_escape_string($conn, $_POST['Personnel_3_update']);
+    $person_1_upds = mysqli_real_escape_string($conn, $_POST['Personnel_1_update']);
+    $person_2_upds = mysqli_real_escape_string($conn, $_POST['Personnel_2_update']);
+    $person_3_upds = mysqli_real_escape_string($conn, $_POST['Personnel_3_update']);
 
-    $parent_proj_upds = mysql_real_escape_string($conn, $_POST['p_project_update']);
+    $parent_proj_upds = mysqli_real_escape_string($conn, $_POST['p_project_update']);
 
-    $tpm_1_upds = mysql_real_escape_string($conn, $_POST['tpm1_update']);
-    $tpm_2_upds = mysql_real_escape_string($conn, $_POST['tpm2_update']);
-    $tpm_3_upds = mysql_real_escape_string($conn, $_POST['tpm3_update']);
+    $tpm_1_upds = mysqli_real_escape_string($conn, $_POST['tpm1_update']);
+    $tpm_2_upds = mysqli_real_escape_string($conn, $_POST['tpm2_update']);
+    $tpm_3_upds = mysqli_real_escape_string($conn, $_POST['tpm3_update']);
 
-    $progress_upds = mysql_real_escape_string($conn, $_POST['progress_state_update']); 
-    $p_require_upds = mysql_real_escape_string($conn, $_POST['p_requirements_update']);
-    $c_require_upds = mysql_real_escape_string($conn, $_POST['c_requirements_update']);
-    $r_require_upds = mysql_real_escape_string($conn, $_POST['r_requirements_update']); 
+    $progress_upds = mysqli_real_escape_string($conn, $_POST['progress_state_update']);
+    $p_require_upds = mysqli_real_escape_string($conn, $_POST['p_requirements_update']);
+    $c_require_upds = mysqli_real_escape_string($conn, $_POST['c_requirements_update']);
+    $r_require_upds = mysqli_real_escape_string($conn, $_POST['r_requirements_update']);
 
-    $comment_upds = mysql_real_escape_string($conn, $_POST['extradetail_update']);
-    $current_sol_upds = mysql_real_escape_string($conn, $_POST['current_sol_update']);
-    $current_defi_upds = mysql_real_escape_string($conn, $_POST['defi_sol_update']);
-    $crit_path_upds = mysql_real_escape_string($conn, $_POST['crit_path_update']);
+    $comment_upds = mysqli_real_escape_string($conn, $_POST['extradetail_update']);
+    $current_sol_upds = mysqli_real_escape_string($conn, $_POST['current_sol_update']);
+    $current_defi_upds = mysqli_real_escape_string($conn, $_POST['defi_sol_update']);
+    $crit_path_upds = mysqli_real_escape_string($conn, $_POST['crit_path_update']);
 
-    $last_user_upds = mysql_real_escape_string($conn, $_POST['last_user_upd']);
-    $last_changed_upds = mysql_real_escape_string($conn, $_POST['last_time_upd']);
-    $change_comments_upds = mysql_real_escape_string($conn, $_POST['change_comments_upd']);
+    $last_user_upds = mysqli_real_escape_string($conn, $_POST['last_user_upd']);
+    $last_changed_upds = mysqli_real_escape_string($conn, $_POST['last_time_upd']);
+    $change_comments_upds = mysqli_real_escape_string($conn, $_POST['change_comments_upd']);
 
-    $sql_update = "UPDATE management_projects SET dateval='$date_proj_upds', name_sys='$name_upds' , system_id='$ids_upds', personnel_1='$person_1_upds', personnel_2='$person_2_upds', 
-    personnel_3='$person_3_upds', parent_proj='$parent_proj_upds', TPM_1='$tpm_1_upds', TPM_2='$tpm_1_upds', TPM_3='$tpm_1_upds', progress='$progress_upds', 
+    $sql_update = "UPDATE management_projects SET dateval='$date_proj_upds', name_sys='$name_upds' , system_id='$ids_upds', personnel_1='$person_1_upds', personnel_2='$person_2_upds',
+    personnel_3='$person_3_upds', parent_proj='$parent_proj_upds', TPM_1='$tpm_1_upds', TPM_2='$tpm_1_upds', TPM_3='$tpm_1_upds', progress='$progress_upds',
     parent_require='$p_require_upds', child_require='$c_require_upds', related_require='$r_require_upds', comments='$comment_upds', current_sol='$current_sol_upds',
     current_defi='$current_defi_upds', critical_path='$crit_path_upds', last_editor='$last_user_upds', last_edited='$last_changed_upds', change_comments='$change_comments_upds' " . "WHERE ID='" . $update_select . "'";
 
@@ -61,7 +61,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="stylesheet.css">
     <title>Document</title>
-    
+
     <style>
 
     </style>
@@ -114,7 +114,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
             </table>
             </div>
-            
+
             <br>
             <div class="new_expense">
                 <h4>Requirements</h4>
@@ -167,14 +167,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
     ?>
 
 
-    <div class="addexpend"> 
-        <a href="./addproject.php"><img id="engine" src="./Images/Engine.jpg" alt="White Dwarf" width="300" 
+    <div class="addexpend">
+        <a href="./addproject.php"><img id="engine" src="./Images/Engine.jpg" alt="White Dwarf" width="300"
      height="405"></a>
         <h2 id="addexp">Add New Project</h2>
     </div>
 
     <div class="stats">
-        <a href="./require.php"><img id="nebula" src="./Images/Nebula.jpg" alt="White Dwarf" width="300" 
+        <a href="./require.php"><img id="nebula" src="./Images/Nebula.jpg" alt="White Dwarf" width="300"
      height="405"></a>
         <h2 id="stats">Add Requirement</h2>
     </div>
@@ -188,7 +188,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST"){
 
 <footer class="footer">
     <p><em>The original CUSF expenses system was written in 2009 by Henry Hallam and was updated by Tim Clifford in 2021.</em></p>
-    <p>It was then rebuilt in 2022 to include management by Barty Wardell. You can email him <a id="email" href = "mailto: barty.wardell@gmail.com">here</a>.</p>
+    <p>This management system, loosely based on it, was built in 2022 by Barty Wardell. You can email him <a id="email" href = "mailto: barty.wardell@gmail.com">here</a>.</p>
 </footer>
 
 </html>

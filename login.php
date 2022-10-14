@@ -18,7 +18,7 @@
         // Check user is exist in the database
         $query    = "SELECT * FROM management_users WHERE username='$username'
                      AND password='" . md5($password) . "'";
-        $result = mysqli_query($conn, $query) or die(mysql_error());
+        $result = mysqli_query($conn, $query) or die(mysqli_error());
         $rows = mysqli_num_rows($result);
         $arrays=mysqli_fetch_array($result);
         if ($rows == 1) {

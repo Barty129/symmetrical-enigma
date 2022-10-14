@@ -4,8 +4,8 @@
     include("auth_session.php");
 
     if ($_SERVER["REQUEST_METHOD"] == "POST" AND $_SESSION['Admin']=='Admin'){
-        $ID_delete = mysql_real_escape_string($conn, $_POST['ID_delete']);
-        $rec_del = "DELETE FROM management_users" ."WHERE ID='" . $ID_delete . "'";
+        $ID_delete = mysqli_real_escape_string($conn, $_POST['ID_delete']);
+        $rec_del = "DELETE FROM management_users " . "WHERE ID='" . $ID_delete . "'";
         if (mysqli_query($conn, $rec_del)) {
             $result = "Successfully Deleted";
             header( "refresh:1;url=./users.php" );
